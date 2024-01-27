@@ -1,4 +1,4 @@
-# REQUIÃO - Back
+# Advogados template - Back
 
 <span id="topo"></span>
 
@@ -18,11 +18,6 @@
 
 A criação de um sistema de gerenciamento de processos de advogados.
 
-- ### • Links úteis
-
-  - [Link para o Trello](https://trello.com/invite/b/YtlYiliz/ATTIbb119a1c7fd9a8578ceb3d5e95726545DA61CC31/pe-advogados)
-  - [Link para o Figma](https://www.figma.com/file/ArsUtd8qA83tkKfd4o84L1/R%26R---Advogados?type=design&node-id=164-1883&mode=design&t=rrWg5CqpHmVV1zl3-0)
-
 ## 💻 Pré-requisitos
 
 Antes de começar, verifique se você atendeu aos seguintes requisitos:
@@ -33,9 +28,9 @@ Antes de começar, verifique se você atendeu aos seguintes requisitos:
 - Você tem uma máquina `<Windows / Linux / Mac>`. Indique qual sistema operacional é compatível / não compatível.
 - Você leu `<guia / link / documentação_relacionada_ao_projeto>`.
 
-## 🚀 Instalando <Requião>
+## 🚀 Instalando <AdvogadosTemplate>
 
-Para instalar o <Requião>, siga estas etapas:
+Para instalar o <AdvogadosTemplate>, siga estas etapas:
 
 Linux:
 
@@ -66,7 +61,7 @@ npm i
 
 Depois, renomeie o arquivo .env-example para .env e configure as variáveis de ambiente.
 
-## ☕ Usando <Requião>
+## ☕ Usando <AdvogadosTemplate>
 
 Para rodar o projeto:
 
