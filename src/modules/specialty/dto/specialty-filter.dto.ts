@@ -1,12 +1,30 @@
 import { Type } from 'class-transformer';
-import { IsNumber, IsOptional, IsPositive } from 'class-validator';
+import {
+  IsBooleanString,
+  IsNumber,
+  IsNumberString,
+  IsOptional,
+  IsPositive,
+} from 'class-validator';
 
 export class SpecialtyFilterDto {
   @IsOptional({ message: 'Usuário é opcional.' })
+  @IsNumberString({}, { message: 'Usuário deve ser um número.' })
   user: number;
 
   @IsOptional({ message: 'Categoria é opcional.' })
+  @IsNumber({}, { message: 'Categoria deve ser um número.' })
   category: number;
+
+  @IsOptional({ message: 'Trazer dados do usuário é opcional.' })
+  @IsBooleanString({ message: 'Trazer dados do usuário deve ser um booleano.' })
+  withUser: string;
+
+  @IsOptional({ message: 'Trazer dados da categoria é opcional.' })
+  @IsBooleanString({
+    message: 'Trazer dados da categoria deve ser um booleano.',
+  })
+  withCategory: string;
 
   @IsOptional({ message: 'Limite é opcional.' })
   @IsNumber({}, { message: 'Limite deve ser um número.' })

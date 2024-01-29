@@ -13,7 +13,7 @@ import {
 
 @Entity({ name: 'users', orderBy: { id: 'ASC' } })
 export class User {
-  @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
+  @PrimaryGeneratedColumn({ type: 'int', name: 'id', unsigned: true })
   id: number;
 
   @Column({ name: 'name', nullable: false, type: 'varchar', length: 255 })

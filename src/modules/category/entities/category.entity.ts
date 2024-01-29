@@ -10,7 +10,7 @@ import {
 
 @Entity({ name: 'categories', orderBy: { id: 'ASC' } })
 export class Category {
-  @PrimaryGeneratedColumn({ type: 'bigint', name: 'id' })
+  @PrimaryGeneratedColumn({ type: 'int', name: 'id', unsigned: true })
   id: number;
 
   @Column({ name: 'name', length: 255, nullable: false, unique: true })

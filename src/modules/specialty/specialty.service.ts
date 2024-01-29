@@ -54,6 +54,12 @@ export class SpecialtyService {
   }
 
   async findAllWithFilter(query: SpecialtyFilterDto): Promise<Specialty[]> {
+    const relations = [];
+
+    // Trazer dados do usuário e/ou categoria junto com a especialidade
+    query.withUser === 'true' && relations.push('user');
+    query.withCategory === 'true' && relations.push('category');
+
     const filter = {
       ...(query.user && { userId: query.user }),
       ...(query.category && { categoryId: query.category }),
@@ -72,7 +78,7 @@ export class SpecialtyService {
       order: sortObject,
       take: query.limit || null,
       skip: (query.page - 1) * query.limit || 0,
-      relations: ['category'],
+      relations: relations,
     });
   }
 

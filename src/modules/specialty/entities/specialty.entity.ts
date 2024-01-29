@@ -12,21 +12,26 @@ import {
 
 @Entity({ name: 'specialties', orderBy: { id: 'ASC' } })
 export class Specialty {
-  @PrimaryGeneratedColumn({ name: 'id', type: 'bigint' })
+  @PrimaryGeneratedColumn({ name: 'id', type: 'int', unsigned: true })
   id: number;
 
   @Column({ name: 'affinity', type: 'int', nullable: false })
   affinity: number;
 
-  @Column({ name: 'user_id', type: 'bigint', nullable: false })
+  @Column({ name: 'user_id', type: 'int', nullable: false, unsigned: true })
   userId: number;
-
-  @Column({ name: 'category_id', type: 'bigint', nullable: false })
-  categoryId: number;
 
   @ManyToOne(() => User, (user) => user.specialties, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'user_id' })
   user: User;
+
+  @Column({
+    name: 'category_id',
+    type: 'int',
+    nullable: false,
+    unsigned: true,
+  })
+  categoryId: number;
 
   @ManyToOne(() => Category, (user) => user.specialties, {
     onDelete: 'CASCADE',

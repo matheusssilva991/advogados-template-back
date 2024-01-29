@@ -7,7 +7,7 @@ export const dataSourceOptions: DataSourceOptions = {
   type: 'mysql',
   host: process.env.DB_HOST || 'localhost',
   username: process.env.DB_USER || 'root',
-  password: process.env.DB_PASSWORD || '123456@Mc',
+  password: process.env.DB_PASSWORD || 'root',
   database: process.env.DB_DATABASE || 'test',
   entities: ['dist/**/*.entity{.ts,.js}'],
   migrations: ['dist/db/migrations/*{.ts,.js}'],
@@ -15,4 +15,5 @@ export const dataSourceOptions: DataSourceOptions = {
 };
 
 const dataSource = new DataSource(dataSourceOptions);
+
 export default dataSource;
