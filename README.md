@@ -420,6 +420,8 @@ Para acessar as rotas do projeto:
 > | ------- | -------- | --------- | ------------------------------- |
 > | `user`  | opcional | string    | ID do usuário |
 > | `category` | opcional | string   | ID da categoria |
+> | `withUser` | opcional | bolean   | Trazer ou não dados de usuário |
+> | `withCategory` | opcional | bolean   | Trazer ou não dados da categoria |
 > | `limit` | opcional | number    | Limite de especialidades por página |
 > | `page` | opcional | number    | Página |
 > | `sort` | opcional | object   | Chaves de ordenação |
