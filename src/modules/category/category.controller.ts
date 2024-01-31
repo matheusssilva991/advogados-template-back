@@ -8,8 +8,6 @@ import {
   Patch,
   Post,
   Query,
-  UsePipes,
-  ValidationPipe,
 } from '@nestjs/common';
 import { CategoryService } from './category.service';
 import { CategoryFilterDto } from './dto/category-filter.dto';
@@ -29,7 +27,6 @@ export class CategoryController {
   }
 
   @Get('categories')
-  @UsePipes(new ValidationPipe({ transform: true }))
   async findAll(@Query() query: CategoryFilterDto): Promise<Category[]> {
     if (Object.keys(query).length) {
       return await this.categoryService.findAllWithFilter(query);

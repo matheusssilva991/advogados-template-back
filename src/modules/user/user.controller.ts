@@ -8,8 +8,6 @@ import {
   Patch,
   Post,
   Query,
-  UsePipes,
-  ValidationPipe,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -27,7 +25,6 @@ export class UserController {
   }
 
   @Get('users')
-  @UsePipes(new ValidationPipe({ transform: true }))
   async findAll(@Query() query: UserFilterDto): Promise<User[]> {
     if (Object.keys(query).length) {
       return await this.userService.findAllWithFilter(query);

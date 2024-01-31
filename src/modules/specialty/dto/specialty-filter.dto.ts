@@ -13,7 +13,7 @@ export class SpecialtyFilterDto {
   user: number;
 
   @IsOptional({ message: 'Categoria é opcional.' })
-  @IsNumber({}, { message: 'Categoria deve ser um número.' })
+  @IsNumberString({}, { message: 'Categoria deve ser um número.' })
   category: number;
 
   @IsOptional({ message: 'Trazer dados do usuário é opcional.' })

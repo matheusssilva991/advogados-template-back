@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Role } from 'src/enum/role.enum';
+import { Role } from '../../enum/role.enum';
 import { Repository } from 'typeorm';
 import { CategoryService } from '../category/category.service';
 import { UserService } from '../user/user.service';
@@ -76,7 +76,7 @@ export class SpecialtyService {
     return await this.specialtyRepository.find({
       where: filter,
       order: sortObject,
-      take: query.limit || null,
+      take: query.limit || undefined,
       skip: (query.page - 1) * query.limit || 0,
       relations: relations,
     });

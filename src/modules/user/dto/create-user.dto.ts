@@ -8,7 +8,7 @@ import {
   IsString,
   IsStrongPassword,
 } from 'class-validator';
-import { Role } from 'src/enum/role.enum';
+import { Role } from '../../../enum/role.enum';
 
 export class CreateUserDto {
   @IsNotEmpty({ message: 'Nome é obrigatório.' })
@@ -21,7 +21,7 @@ export class CreateUserDto {
 
   @IsOptional({ message: 'Telefone é opcional.' })
   @IsPhoneNumber('BR', { message: 'Telefone inválido.' })
-  phoneNumber: string;
+  phoneNumber?: string;
 
   @IsNotEmpty({ message: 'Senha é obrigatória.' })
   @IsStrongPassword(
@@ -37,11 +37,11 @@ export class CreateUserDto {
 
   @IsOptional({ message: 'Número da OAB é opcional.' })
   @IsString({ message: 'Número da OAB deve ser uma string.' })
-  nroOAB: string;
+  nroOAB?: string;
 
   @IsOptional({ message: 'Função é opcional.' })
   @IsEnum(Role, { message: 'Função inválida.' })
-  role: Role;
+  role?: Role;
 
   @IsEmpty()
   createdAt: Date;

@@ -8,8 +8,6 @@ import {
   Patch,
   Post,
   Query,
-  UsePipes,
-  ValidationPipe,
 } from '@nestjs/common';
 import { CreateSpecialtyDto } from './dto/create-specialty.dto';
 import { SpecialtyFilterDto } from './dto/specialty-filter.dto';
@@ -29,7 +27,6 @@ export class SpecialtyController {
   }
 
   @Get('specialties')
-  @UsePipes(new ValidationPipe({ transform: true }))
   async findAll(@Query() query: SpecialtyFilterDto): Promise<Specialty[]> {
     if (Object.keys(this).length) {
       return this.specialtyService.findAllWithFilter(query);

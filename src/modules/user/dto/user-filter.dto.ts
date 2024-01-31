@@ -3,26 +3,26 @@ import { IsNumber, IsOptional, IsPositive } from 'class-validator';
 
 export class UserFilterDto {
   @IsOptional({ message: 'Nome é opcional.' })
-  name: string;
+  name?: string;
 
   @IsOptional({ message: 'nroOAB é opcional.' })
-  nroOAB: string;
+  nroOAB?: string;
 
   @IsOptional({ message: 'Função é opcional.' })
-  role: string;
+  role?: string;
 
   @IsOptional({ message: 'Limite é opcional.' })
   @IsNumber({}, { message: 'Limite deve ser um número.' })
   @IsPositive({ message: 'Limite deve ser positivo.' })
   @Type(() => Number)
-  limit: number;
+  limit?: number;
 
   @IsOptional({ message: 'Página é opcional.' })
   @IsNumber({}, { message: 'Página deve ser um número.' })
   @IsPositive({ message: 'Página deve ser positiva.' })
   @Type(() => Number)
-  page: number;
+  page?: number;
 
   @IsOptional({ message: 'Ordenação é opcional.' })
-  sort: string;
+  sort?: string;
 }

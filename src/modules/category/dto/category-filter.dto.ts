@@ -6,14 +6,14 @@ export class CategoryFilterDto {
   @IsNumber({}, { message: 'Limite deve ser um número.' })
   @IsPositive({ message: 'Limite deve ser positivo.' })
   @Type(() => Number)
-  limit: number;
+  limit?: number;
 
   @IsOptional({ message: 'Página é opcional.' })
   @IsNumber({}, { message: 'Página deve ser um número.' })
   @IsPositive({ message: 'Página deve ser positiva.' })
   @Type(() => Number)
-  page: number;
+  page?: number;
 
   @IsOptional({ message: 'Ordenação é opcional.' })
-  sort: string;
+  sort?: string;
 }

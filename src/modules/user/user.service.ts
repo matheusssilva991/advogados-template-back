@@ -53,7 +53,7 @@ export class UserService {
     return await this.userRepository.find({
       where: filter,
       order: sortObject,
-      take: query.limit || null,
+      take: query.limit || undefined,
       skip: (query.page - 1) * query.limit || 0,
     });
   }
@@ -108,7 +108,7 @@ export class UserService {
 
   async emailAlreadyExists(email: string): Promise<void> {
     if (await this.userRepository.findOne({ where: { email: Like(email) } })) {
-      throw new BadRequestException({ message: 'Email já cadastrado.' });
+      throw new BadRequestException('Email já cadastrado.');
     }
   }
 
@@ -126,9 +126,9 @@ export class UserService {
 
   async passwordMatches(password: string, hash: string): Promise<void> {
     if (!password || !hash)
-      throw new BadRequestException({ message: 'Senha não informada.' });
+      throw new BadRequestException('Senha não informada.');
 
     if (!(await bcrypt.compare(password, hash)))
-      throw new BadRequestException({ message: 'Senha incorreta.' });
+      throw new BadRequestException('Senha incorreta.');
   }
 }

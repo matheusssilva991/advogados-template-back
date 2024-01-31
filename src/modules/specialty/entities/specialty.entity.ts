@@ -1,5 +1,5 @@
-import { Category } from 'src/modules/category/entities/category.entity';
-import { User } from 'src/modules/user/entities/user.entity';
+import { Category } from '../../../modules/category/entities/category.entity';
+import { User } from '../../../modules/user/entities/user.entity';
 import {
   Column,
   CreateDateColumn,

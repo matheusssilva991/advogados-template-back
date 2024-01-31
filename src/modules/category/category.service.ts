@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository } from 'typeorm';
 import { CategoryFilterDto } from './dto/category-filter.dto';
@@ -36,7 +40,7 @@ export class CategoryService {
 
     return await this.categoryRepository.find({
       order: sortObject,
-      take: query.limit || null,
+      take: query.limit || undefined,
       skip: (query.page - 1) * query.limit || 0,
     });
   }
@@ -46,7 +50,7 @@ export class CategoryService {
     try {
       return await this.categoryRepository.findOneOrFail({ where: { id } });
     } catch (error) {
-      throw new BadRequestException({ message: 'Categoria não encontrada.' });
+      throw new NotFoundException('Categoria não encontrada.');
     }
   }
 
@@ -76,7 +80,7 @@ export class CategoryService {
       where: { name: Like(name) },
     });
     if (category) {
-      throw new BadRequestException({ message: 'Categoria já existe.' });
+      throw new BadRequestException('Categoria já existe.');
     }
   }
 }

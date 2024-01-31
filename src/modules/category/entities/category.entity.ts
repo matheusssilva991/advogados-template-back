@@ -1,4 +1,3 @@
-import { Specialty } from 'src/modules/specialty/entities/specialty.entity';
 import {
   Column,
   CreateDateColumn,
@@ -7,6 +6,8 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Specialty } from '../../../modules/specialty/entities/specialty.entity';
+import { Process } from '../../process/entities/process.entity';
 
 @Entity({ name: 'categories', orderBy: { id: 'ASC' } })
 export class Category {
@@ -18,6 +19,9 @@ export class Category {
 
   @OneToMany(() => Specialty, (specialty) => specialty.category)
   specialties: Specialty[];
+
+  @OneToMany(() => Process, (process) => process.category)
+  processes: Process[];
 
   @CreateDateColumn({
     type: 'timestamp',

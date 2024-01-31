@@ -2,10 +2,10 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { dataSourceOptions } from 'db/data-source';
-import { AppController } from './app.controller';
 import { UserModule } from './modules/user/user.module';
 import { CategoryModule } from './modules/category/category.module';
 import { SpecialtyModule } from './modules/specialty/specialty.module';
+import { ProcessModule } from './modules/process/process.module';
 
 @Module({
   imports: [
@@ -16,8 +16,9 @@ import { SpecialtyModule } from './modules/specialty/specialty.module';
     UserModule,
     CategoryModule,
     SpecialtyModule,
+    ProcessModule,
   ],
-  controllers: [AppController],
+  controllers: [],
   providers: [],
 })
 export class AppModule {}

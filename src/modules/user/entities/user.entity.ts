@@ -1,5 +1,4 @@
 import * as bcrypt from 'bcrypt';
-import { Specialty } from 'src/modules/specialty/entities/specialty.entity';
 import {
   BeforeInsert,
   BeforeUpdate,
@@ -10,6 +9,8 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Process } from '../../process/entities/process.entity';
+import { Specialty } from '../../specialty/entities/specialty.entity';
 
 @Entity({ name: 'users', orderBy: { id: 'ASC' } })
 export class User {
@@ -28,7 +29,7 @@ export class User {
     type: 'varchar',
     length: 30,
   })
-  phoneNumber: string;
+  phoneNumber?: string;
 
   @Column({
     name: 'password',
@@ -40,7 +41,7 @@ export class User {
   password: string;
 
   @Column({ name: 'nro_oab', nullable: true, type: 'varchar', length: 100 })
-  nroOAB: string;
+  nroOAB?: string;
 
   @Column({
     name: 'role',
@@ -53,6 +54,9 @@ export class User {
 
   @OneToMany(() => Specialty, (specialty) => specialty.user)
   specialties: Specialty[];
+
+  @OneToMany(() => Process, (process) => process.user)
+  processes: Process[];
 
   @CreateDateColumn({
     type: 'timestamp',
