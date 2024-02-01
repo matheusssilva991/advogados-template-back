@@ -123,8 +123,8 @@ export class ProcessService {
       ...(query.matter && {
         matter: ILike(`%${query.matter}%`),
       }),
-      ...(query.information && {
-        information: ILike(`%${query.information}%`),
+      ...(query.description && {
+        description: ILike(`%${query.description}%`),
       }),
       ...(query.isUrgent && {
         isUrgent: query.isUrgent,
@@ -163,7 +163,7 @@ export class ProcessService {
     try {
       return await this.processRepository.findOneOrFail({ where: { id } });
     } catch (error) {
-      throw new NotFoundException('Processo não encontrado.');
+      throw new NotFoundException(`Processo ${id} não encontrado.`);
     }
   }
 

@@ -8,6 +8,7 @@ import {
   Delete,
   ParseIntPipe,
   Query,
+  ParseArrayPipe,
 } from '@nestjs/common';
 import { ProcessService } from './process.service';
 import { CreateProcessDto } from './dto/create-process.dto';
@@ -45,7 +46,7 @@ export class ProcessController {
   }
 
   @Patch('processes')
-  updateAll(@Body() ids: number[]) {
+  updateAll(@Body('ids', ParseArrayPipe) ids: number[]) {
     return this.processService.updateMany(ids);
   }
 
@@ -55,7 +56,7 @@ export class ProcessController {
   }
 
   @Delete('processes')
-  removeAll(@Body() ids: number[]) {
+  removeAll(@Body('ids', ParseArrayPipe) ids: number[]) {
     return this.processService.removeMany(ids);
   }
 }

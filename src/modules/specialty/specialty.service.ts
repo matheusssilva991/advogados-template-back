@@ -89,7 +89,7 @@ export class SpecialtyService {
         relations: ['category'],
       });
     } catch (error) {
-      throw new NotFoundException('Especialidade não encontrada.');
+      throw new NotFoundException(`Especialidade ${id} não encontrada.`);
     }
   }
 

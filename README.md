@@ -484,7 +484,7 @@ Para acessar as rotas do projeto:
 
 > | http code | content-type       | response                                 |
 > | --------- | ------------------ | ---------------------------------------- |
-> | `201`     | `application/json` | `{"code": "201", "user": CreadtedSpecialty }`      |
+> | `201`     | `application/json` | `{"code": "201", "specialty": CreadtedSpecialty }`      |
 > | `400`     | `application/json` | `{"code":"400", "msg":"Bad Request"}` |
 > | `401`     | `application/json` | `{"code":"401", "msg":"Unauthorized"}` |
 
@@ -518,7 +518,7 @@ Para acessar as rotas do projeto:
 
 > | http code | content-type       | response                                 |
 > | --------- | ------------------ | ---------------------------------------- |
-> | `201`     | `application/json` | `{"code": "201", "user": UpdatedUser }`      |
+> | `201`     | `application/json` | `{"code": "201", "specialty": UpdatedSpecialty }`      |
 > | `400`     | `application/json` | `{"code":"400", "msg":"Bad Request"}` |
 > | `401`     | `application/json` | `{"code":"401", "msg":"Unauthorized"}` |
 > | `404`     | `application/json` | `{"code":"404", "msg": "Especialidade não encontrada."}` |
@@ -546,6 +546,240 @@ Para acessar as rotas do projeto:
 > | http code | content-type       | response                                 |
 > | --------- | ------------------ | ---------------------------------------- |
 > | `201`     | `application/json` | `{"code": "201", "specialty": DeletedSpecialty }`      |
+> | `400`     | `application/json` | `{"code":"400", "msg":"Bad Request"}` |
+> | `401`     | `application/json` | `{"code":"401", "msg":"Unauthorized"}` |
+
+</details>
+
+---
+
+### • Processos
+
+<details>
+
+<summary><code>GET</code> <code><b>/api/processes</b></code> <code>(Retorna os processos)</code></summary>
+
+#### • Auth (Nível de Acesso - Lawyers+)
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `accessToken` | required | string    | Token de autorização do usuário |
+
+#### • Query
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `processKey`  | opcional | string    | Chave do processo |
+> | `name`  | opcional | string    | Nome do cliente |
+> | `matter`  | opcional | string    | Matéria do processo |
+> | `description`  | opcional | string    | Descrição do processo |
+> | `beginningDistributionDate`  | opcional | Date  | Data de distribuição inicial do processo |
+> | `endDistributionDate`  | opcional | Date  | Data de distribuição final do processo |
+> | `beginningConclusionDate`  | opcional | Date  | Data de conclusão inicial do processo |
+> | `endConclusionDate`  | opcional | Date  | Data de conclusão final do processo |
+> | `beginningDeadline`  | opcional | Date  | Data de prazo inicial do processo |
+> | `endDeadline`  | opcional | Date  | Data de prazo final do processo |
+> | `status`  | opcional | string    | Status do processo |
+> | `isUrgent`  | opcional | number    | Se o processo é urgente ou não |
+> | `user`  | opcional | number    | ID do usuário |
+> | `category` | opcional | number   | ID da categoria |
+> | `withUser` | opcional | bolean   | Trazer ou não dados de usuário |
+> | `withCategory` | opcional | bolean   | Trazer ou não dados da categoria |
+> | `limit` | opcional | number    | Limite de especialidades por página |
+> | `page` | opcional | number    | Página |
+> | `sort` | opcional | object   | Chaves de ordenação |
+
+#### • Respostas
+
+> | http code | content-type       | response                                 |
+> | --------- | ------------------ | ---------------------------------------- |
+> | `200`     | `application/json` | `{"code": "200", "processes": [Process]}`      |
+> | `401`     | `application/json` | `{"code":"401", "msg":"Unauthorized"}` |
+
+</details>
+
+<details>
+
+<summary><code>GET</code> <code><b>/api/process/:id</b></code> <code>(Retorna uma processo)</code></summary>
+
+#### • Auth (Nível de Acesso - Lawyers+)
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `accessToken` | required | string    | Token de autorização do usuário |
+
+#### • Parâmetros
+
+> | name      | type     | data type | description                     |
+> | --------- | -------- | --------- | ------------------------------- |
+> | `id`   | required | number    | ID do processo |
+
+#### • Respostas
+
+> | http code | content-type       | response                                 |
+> | --------- | ------------------ | ---------------------------------------- |
+> | `200`     | `application/json` | `{"code": "200", "process": Process}`      |
+> | `400`     | `application/json` | `{"code":"400", "msg":"Bad Request"}` |
+> | `401`     | `application/json` | `{"code":"401", "msg":"Unauthorized"}` |
+> | `404`     | `application/json` | `{"code":"404", "msg": "Processo não encontrado."}` |
+
+</details>
+
+<details>
+
+<summary><code>POST</code> <code><b>/api/process</b></code> <code>(Cria um processo)</code></summary>
+
+#### • Auth (Nível de Acesso - Admin)
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `accessToken` | required | string    | Token de autorização do usuário |
+
+#### • Body
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `processKey`  | required | string    | Chave do processo |
+> | `name`  | opcional | string    | Nome do cliente |
+> | `matter`  | opcional | string    | Matéria do processo |
+> | `description`  | opcional | string    | Descrição do processo |
+> | `distributionDate`  | opcional | Date  | Data de distribuição do processo |
+> | `conclusionDate`  | opcional | Date  | Data de conclusão do processo |
+> | `deadline`  | opcional | Date  | Data de prazo do processo |
+> | `status`  | opcional | string    | Status do processo |
+> | `legalOpinion`  | opcional | string    | Parecer do processo |
+> | `isUrgent`  | opcional | number    | Se o processo é urgente ou não |
+> | `userId`  | opcional | number    | ID do usuário |
+> | `categoryId` | required | number   | ID da categoria |
+
+#### • Respostas
+
+> | http code | content-type       | response                                 |
+> | --------- | ------------------ | ---------------------------------------- |
+> | `201`     | `application/json` | `{"code": "201", "process": CreadtedProcess }`      |
+> | `400`     | `application/json` | `{"code":"400", "msg":"Bad Request"}` |
+> | `401`     | `application/json` | `{"code":"401", "msg":"Unauthorized"}` |
+
+</details>
+
+<details>
+
+<summary><code>PATCH</code> <code><b>/api/process/:id</b></code> <code>(Atualiza um processo)</code></summary>
+
+#### • Auth (Nível de Acesso - Lawyer+)
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `accessToken` | required | string    | Token de autorização do usuário |
+
+#### • Parâmetros
+
+> | name      | type     | data type | description                     |
+> | --------- | -------- | --------- | ------------------------------- |
+> | `id`   | required | number    | ID do processo |
+
+#### • Body
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `processKey`  | optional | string    | Chave do processo |
+> | `name`  | opcional | string    | Nome do cliente |
+> | `matter`  | opcional | string    | Matéria do processo |
+> | `description`  | opcional | string    | Descrição do processo |
+> | `distributionDate`  | opcional | Date  | Data de distribuição do processo |
+> | `conclusionDate`  | opcional | Date  | Data de conclusão do processo |
+> | `deadline`  | opcional | Date  | Data de prazo do processo |
+> | `status`  | opcional | string    | Status do processo |
+> | `legalOpinion`  | opcional | string    | Parecer do processo |
+> | `isUrgent`  | opcional | number    | Se o processo é urgente ou não |
+> | `userId`  | opcional | number    | ID do usuário |
+> | `categoryId` | optional | number   | ID da categoria |
+
+#### • Respostas
+
+> | http code | content-type       | response                                 |
+> | --------- | ------------------ | ---------------------------------------- |
+> | `201`     | `application/json` | `{"code": "201", "process": UpdatedProcess }`      |
+> | `400`     | `application/json` | `{"code":"400", "msg":"Bad Request"}` |
+> | `401`     | `application/json` | `{"code":"401", "msg":"Unauthorized"}` |
+> | `404`     | `application/json` | `{"code":"404", "msg": "Processo não encontrado."}` |
+
+</details>
+
+<details>
+
+<summary><code>PATCH</code> <code><b>/api/processes</b></code> <code>(Atualiza processos)</code></summary>
+
+#### • Auth (Nível de Acesso - Lawyer+)
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `accessToken` | required | string    | Token de autorização do usuário |
+
+#### • Body
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `ids`  | opcional | number[]    | IDs dos processos |
+
+#### • Respostas
+
+> | http code | content-type       | response                                 |
+> | --------- | ------------------ | ---------------------------------------- |
+> | `201`     | `application/json` | `{"code": "201", "processos": UpdatedProcesses }`      |
+> | `400`     | `application/json` | `{"code":"400", "msg":"Bad Request"}` |
+> | `401`     | `application/json` | `{"code":"401", "msg":"Unauthorized"}` |
+> | `404`     | `application/json` | `{"code":"404", "msg": "Processo não encontrado."}` |
+
+</details>
+
+<details>
+
+<summary><code>DELETE</code> <code><b>/api/process/:id</b></code> <code>(Deleta um processo)</code></summary>
+
+#### • Auth (Nível de Acesso - Admin)
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `accessToken` | required | string    | Token de autorização do usuário |
+
+#### • Parâmetros
+
+> | name      | type     | data type | description                     |
+> | --------- | -------- | --------- | ------------------------------- |
+> | `id`   | required | number    | ID do processo |
+
+#### • Respostas
+
+> | http code | content-type       | response                                 |
+> | --------- | ------------------ | ---------------------------------------- |
+> | `201`     | `application/json` | `{"code": "201", "process": DeletedProcess }`      |
+> | `400`     | `application/json` | `{"code":"400", "msg":"Bad Request"}` |
+> | `401`     | `application/json` | `{"code":"401", "msg":"Unauthorized"}` |
+
+</details>
+
+<details>
+
+<summary><code>DELETE</code> <code><b>/api/processes</b></code> <code>(Deleta processos)</code></summary>
+
+#### • Auth (Nível de Acesso - Admin)
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `accessToken` | required | string    | Token de autorização do usuário |
+
+#### • Body
+
+> | name      | type     | data type | description                     |
+> | --------- | -------- | --------- | ------------------------------- |
+> | `ids`   | required | number[]   | IDs dos procesos |
+
+#### • Respostas
+
+> | http code | content-type       | response                                 |
+> | --------- | ------------------ | ---------------------------------------- |
+> | `201`     | `application/json` | `{"code": "201", "processes": DeletedProcesses }`      |
 > | `400`     | `application/json` | `{"code":"400", "msg":"Bad Request"}` |
 > | `401`     | `application/json` | `{"code":"401", "msg":"Unauthorized"}` |
 

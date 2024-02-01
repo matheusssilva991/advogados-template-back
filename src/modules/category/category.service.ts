@@ -50,7 +50,7 @@ export class CategoryService {
     try {
       return await this.categoryRepository.findOneOrFail({ where: { id } });
     } catch (error) {
-      throw new NotFoundException('Categoria não encontrada.');
+      throw new NotFoundException(`Categoria ${id} não encontrada.`);
     }
   }
 

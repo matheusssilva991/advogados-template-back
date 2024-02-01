@@ -29,8 +29,8 @@ export class Process {
   @Column({ name: 'matter', nullable: true, type: 'varchar', length: 255 })
   matter?: string;
 
-  @Column({ name: 'information', nullable: true, type: 'text' })
-  information?: string;
+  @Column({ name: 'description', nullable: true, type: 'text' })
+  description?: string;
 
   @Column({
     name: 'distribution_date',

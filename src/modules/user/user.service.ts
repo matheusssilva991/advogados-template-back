@@ -63,7 +63,7 @@ export class UserService {
     try {
       return await this.userRepository.findOneByOrFail({ id });
     } catch (error) {
-      throw new NotFoundException('Usuário não encontrado.');
+      throw new NotFoundException(`Usuário ${id} não encontrado.`);
     }
   }
 

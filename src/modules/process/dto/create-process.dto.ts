@@ -13,6 +13,7 @@ import { Status } from '../../../enum/status.enum';
 
 export class CreateProcessDto {
   @IsString({ message: 'Chave do processo deve ser uma string.' })
+  @IsNotEmpty({ message: 'Chave do processo é obrigatória.' })
   processKey: string;
 
   @IsString({ message: 'Nome do cliente deve ser uma string.' })
@@ -23,9 +24,9 @@ export class CreateProcessDto {
   @IsOptional({ message: 'Assunto do processo é opcional.' })
   matter?: string;
 
-  @IsString({ message: 'Informações do processo deve ser uma string.' })
-  @IsOptional({ message: 'Informações do processo é opcional.' })
-  information?: string;
+  @IsString({ message: 'Descrição do processo deve ser uma string.' })
+  @IsOptional({ message: 'Descrição do processo é opcional.' })
+  description?: string;
 
   @IsDate({ message: 'Data de distribuição deve ser uma data.' })
   @IsOptional({ message: 'Data de distribuição é opcional.' })

@@ -21,9 +21,9 @@ export class ProcessFilterDto {
   @IsOptional({ message: 'Assunto do processo é opcional.' })
   matter?: string;
 
-  @IsString({ message: 'Informações do processo deve ser uma string.' })
-  @IsOptional({ message: 'Informações do processo é opcional.' })
-  information?: string;
+  @IsString({ message: 'Descrição do processo deve ser uma string.' })
+  @IsOptional({ message: 'Descrição do processo é opcional.' })
+  description?: string;
 
   @IsDate({ message: 'Data de distribuição inicial deve ser uma data.' })
   @IsOptional({ message: 'Data de distribuição inicial é opcional.' })
