@@ -1,4 +1,3 @@
-import { ProcessDocumentsService } from './../process-documents/process-documents.service';
 import {
   BadRequestException,
   Injectable,
@@ -25,7 +24,6 @@ export class ProcessService {
     private readonly userService: UserService,
     private readonly categoryService: CategoryService,
     private readonly specialtyService: SpecialtyService,
-    private readonly ProcessDocumentService: ProcessDocumentsService,
   ) {}
 
   async create(createProcessDto: CreateProcessDto) {
@@ -257,9 +255,8 @@ export class ProcessService {
   }
 
   async remove(id: number) {
-    await this.findOne(id);
-    await this.ProcessDocumentService.removeFilesByProcessId(id);
-    return await this.processRepository.delete(id);
+    const process = await this.findOne(id);
+    return await this.processRepository.remove(process);
   }
 
   async removeMany(ids: number[]) {

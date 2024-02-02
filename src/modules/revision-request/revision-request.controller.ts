@@ -21,12 +21,12 @@ export class RevisionRequestController {
   ) {}
 
   @Post('revision-request')
-  create(@Body() createRevisionRequestDto: CreateRevisionRequestDto) {
+  async create(@Body() createRevisionRequestDto: CreateRevisionRequestDto) {
     return this.revisionRequestService.create(createRevisionRequestDto);
   }
 
   @Get('revision-requests')
-  findAll(@Query() query: RevisionRequestFilterDto) {
+  async findAll(@Query() query: RevisionRequestFilterDto) {
     if (Object.keys(query).length) {
       return this.revisionRequestService.findAllWithFilter(query);
     }
@@ -34,12 +34,12 @@ export class RevisionRequestController {
   }
 
   @Get('revision-request/:id')
-  findOne(@Param('id', ParseIntPipe) id: number) {
+  async findOne(@Param('id', ParseIntPipe) id: number) {
     return this.revisionRequestService.findOne(+id);
   }
 
   @Patch('revision-request/:id')
-  update(
+  async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateRevisionRequestDto: UpdateRevisionRequestDto,
   ) {
@@ -47,7 +47,7 @@ export class RevisionRequestController {
   }
 
   @Delete('revision-request/:id')
-  remove(@Param('id', ParseIntPipe) id: number) {
+  async remove(@Param('id', ParseIntPipe) id: number) {
     return this.revisionRequestService.remove(+id);
   }
 }

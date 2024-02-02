@@ -3,9 +3,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ILike, Repository } from 'typeorm';
 import { ProcessService } from '../process/process.service';
 import { CreateRevisionRequestDto } from './dto/create-revision-request.dto';
+import { RevisionRequestFilterDto } from './dto/revision-request-filter.dto';
 import { UpdateRevisionRequestDto } from './dto/update-revision-request.dto';
 import { RevisionRequest } from './entities/revision-request.entity';
-import { RevisionRequestFilterDto } from './dto/revision-request-filter.dto';
 
 @Injectable()
 export class RevisionRequestService {
@@ -84,7 +84,7 @@ export class RevisionRequestService {
   }
 
   async remove(id: number) {
-    await this.findOne(id);
-    return await this.revisionRequestRepository.delete(id);
+    const revisionRequest = await this.findOne(id);
+    return await this.revisionRequestRepository.remove(revisionRequest);
   }
 }

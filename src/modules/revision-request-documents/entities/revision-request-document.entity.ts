@@ -9,10 +9,10 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Process } from '../../process/entities/process.entity';
+import { RevisionRequest } from '../../revision-request/entities/revision-request.entity';
 
-@Entity({ name: 'process_documents', orderBy: { id: 'ASC' } })
-export class ProcessDocument {
+@Entity({ name: 'revision_request_documents', orderBy: { id: 'ASC' } })
+export class RevisionRequestDocument {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id', unsigned: true })
   id: number;
 
@@ -38,15 +38,24 @@ export class ProcessDocument {
   @Column({ type: 'varchar', name: 'file_path', length: 500, nullable: false })
   filePath: string;
 
-  @Column({ type: 'int', name: 'process_id', unsigned: true, nullable: false })
-  processId: number;
-
-  @ManyToOne(() => Process, (process) => process.processDocuments, {
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
+  @Column({
+    type: 'int',
+    name: 'revision_request_id',
+    unsigned: true,
+    nullable: false,
   })
-  @JoinColumn({ name: 'process_id' })
-  process: Process;
+  revisionRequestId: number;
+
+  @ManyToOne(
+    () => RevisionRequest,
+    (revisionRequest) => revisionRequest.revisionRequestDocuments,
+    {
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    },
+  )
+  @JoinColumn({ name: 'revision_request_id' })
+  revisionRequest: RevisionRequest;
 
   @CreateDateColumn({
     type: 'timestamp',

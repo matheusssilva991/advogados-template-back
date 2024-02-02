@@ -1,15 +1,15 @@
-import { Module, forwardRef } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { FileModule } from '../file/file.module';
 import { ProcessModule } from '../process/process.module';
 import { ProcessDocument } from './entities/process-document.entity';
 import { ProcessDocumentsController } from './process-documents.controller';
 import { ProcessDocumentsService } from './process-documents.service';
-import { FileModule } from '../file/file.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([ProcessDocument]),
-    forwardRef(() => ProcessModule),
+    ProcessModule,
     FileModule,
   ],
   controllers: [ProcessDocumentsController],

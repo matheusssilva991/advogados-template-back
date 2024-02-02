@@ -9,6 +9,7 @@ import { SpecialtyModule } from './modules/specialty/specialty.module';
 import { UserModule } from './modules/user/user.module';
 import { FileModule } from './modules/file/file.module';
 import { RevisionRequestModule } from './modules/revision-request/revision-request.module';
+import { RevisionRequestDocumentsModule } from './modules/revision-request-documents/revision-request-documents.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { RevisionRequestModule } from './modules/revision-request/revision-reque
     ProcessDocumentsModule,
     FileModule,
     RevisionRequestModule,
+    RevisionRequestDocumentsModule,
   ],
   controllers: [],
   providers: [],
