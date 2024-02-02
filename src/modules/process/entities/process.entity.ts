@@ -11,6 +11,7 @@ import {
 import { Category } from '../../category/entities/category.entity';
 import { User } from '../../user/entities/user.entity';
 import { ProcessDocument } from '../../process-documents/entities/process-document.entity';
+import { RevisionRequest } from '../../revision-request/entities/revision-request.entity';
 
 @Entity({ name: 'processes', orderBy: { id: 'ASC' } })
 export class Process {
@@ -101,6 +102,12 @@ export class Process {
     (processDocument) => processDocument.process,
   )
   processDocuments: ProcessDocument[];
+
+  @OneToMany(
+    () => RevisionRequest,
+    (revisionRequest) => revisionRequest.process,
+  )
+  revisionRequests: RevisionRequest[];
 
   @CreateDateColumn({
     type: 'timestamp',

@@ -1,6 +1,7 @@
 import { Type } from 'class-transformer';
 import {
   IsDate,
+  IsEmpty,
   IsEnum,
   IsNotEmpty,
   IsNumber,
@@ -10,7 +11,7 @@ import {
   Max,
   Min,
 } from 'class-validator';
-import { Status } from '../../../enum/status.enum';
+import { Status } from '../../../common/enum/status.enum';
 
 export class CreateProcessDto {
   @IsString({ message: 'Chave do processo deve ser uma string.' })
@@ -67,4 +68,10 @@ export class CreateProcessDto {
   @IsPositive({ message: 'ID da categoria deve ser um número positivo.' })
   @IsNotEmpty({ message: 'ID da categoria é obrigatório.' })
   categoryId: number;
+
+  @IsEmpty({ message: 'O campo createdAt não deve ser preenchido.' })
+  createdAt: Date;
+
+  @IsEmpty({ message: 'O campo updatedAt não deve ser preenchido.' })
+  updatedAt: Date;
 }

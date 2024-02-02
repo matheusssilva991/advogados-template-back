@@ -8,7 +8,7 @@ import {
   IsString,
   IsStrongPassword,
 } from 'class-validator';
-import { Role } from '../../../enum/role.enum';
+import { Role } from '../../../common/enum/role.enum';
 
 export class CreateUserDto {
   @IsNotEmpty({ message: 'Nome é obrigatório.' })
@@ -43,9 +43,9 @@ export class CreateUserDto {
   @IsEnum(Role, { message: 'Função inválida.' })
   role?: Role;
 
-  @IsEmpty()
+  @IsEmpty({ message: 'O campo createdAt não deve ser preenchido.' })
   createdAt: Date;
 
-  @IsEmpty()
+  @IsEmpty({ message: 'O campo updatedAt não deve ser preenchido.' })
   updatedAt: Date;
 }

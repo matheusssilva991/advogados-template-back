@@ -5,9 +5,9 @@ export class CreateCategoryDto {
   @IsNotEmpty({ message: 'Informe um nome.' })
   name: string;
 
-  @IsEmpty()
+  @IsEmpty({ message: 'O campo createdAt não deve ser preenchido' })
   createdAt: Date;
 
-  @IsEmpty()
+  @IsEmpty({ message: 'O campo updatedAt não deve ser preenchido' })
   updatedAt: Date;
 }

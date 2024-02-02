@@ -15,9 +15,9 @@ export class CreateSpecialtyDto {
   @IsInt({ message: 'Id da categoria deve ser um número inteiro.' })
   categoryId: number;
 
-  @IsEmpty()
+  @IsEmpty({ message: 'O campo createdAt não deve ser preenchido.' })
   createdAt: Date;
 
-  @IsEmpty()
+  @IsEmpty({ message: 'O campo updatedAt não deve ser preenchido.' })
   updatedAt: Date;
 }

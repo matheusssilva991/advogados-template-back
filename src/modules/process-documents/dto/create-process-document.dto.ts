@@ -1,5 +1,6 @@
 import { Exclude, Type } from 'class-transformer';
 import {
+  IsEmpty,
   IsNotEmpty,
   IsNumber,
   IsOptional,
@@ -34,6 +35,9 @@ export class CreateProcessDocumentDto {
   @Type(() => Number)
   processId: number;
 
+  @IsEmpty({ message: 'O campo createdAt não deve ser preenchido' })
   createdAt: Date;
+
+  @IsEmpty({ message: 'O campo updatedAt não deve ser preenchido' })
   updatedAt: Date;
 }

@@ -8,6 +8,7 @@ import { ProcessModule } from './modules/process/process.module';
 import { SpecialtyModule } from './modules/specialty/specialty.module';
 import { UserModule } from './modules/user/user.module';
 import { FileModule } from './modules/file/file.module';
+import { RevisionRequestModule } from './modules/revision-request/revision-request.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { FileModule } from './modules/file/file.module';
     ProcessModule,
     ProcessDocumentsModule,
     FileModule,
+    RevisionRequestModule,
   ],
   controllers: [],
   providers: [],

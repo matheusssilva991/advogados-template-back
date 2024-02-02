@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Between, ILike, LessThan, MoreThan, Not, Repository } from 'typeorm';
-import { Status } from '../../enum/status.enum';
+import { Status } from '../../common/enum/status.enum';
 import { CategoryService } from '../category/category.service';
 import { SpecialtyFilterDto } from '../specialty/dto/specialty-filter.dto';
 import { Specialty } from '../specialty/entities/specialty.entity';
