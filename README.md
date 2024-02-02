@@ -787,6 +787,153 @@ Para acessar as rotas do projeto:
 
 ---
 
+### • Documentos de processo
+
+<details>
+
+<summary><code>GET</code> <code><b>/api/processDocuments</b></code> <code>(Retorna os documentos de processo)</code></summary>
+
+#### • Auth (Nível de Acesso - Lawyers+)
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `accessToken` | required | string    | Token de autorização do usuário |
+
+#### • Query
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `process` | opcional | number   | ID do processo |
+> | `withCategory` | opcional | bolean   | Trazer ou não dados do processo |
+> | `limit` | opcional | number    | Limite de especialidades por página |
+> | `page` | opcional | number    | Página |
+> | `sort` | opcional | object   | Chaves de ordenação |
+
+#### • Respostas
+
+> | http code | content-type       | response                                 |
+> | --------- | ------------------ | ---------------------------------------- |
+> | `200`     | `application/json` | `{"code": "200", "processDocuments": [ProcessDocument]}`      |
+> | `401`     | `application/json` | `{"code":"401", "msg":"Unauthorized"}` |
+
+</details>
+
+<details>
+
+<summary><code>GET</code> <code><b>/api/process-document/:id</b></code> <code>(Retorna um documento de processo)</code></summary>
+
+#### • Auth (Nível de Acesso - Lawyers+)
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `accessToken` | required | string    | Token de autorização do usuário |
+
+#### • Parâmetros
+
+> | name      | type     | data type | description                     |
+> | --------- | -------- | --------- | ------------------------------- |
+> | `id`   | required | number    | ID do documento de processo |
+
+#### • Respostas
+
+> | http code | content-type       | response                                 |
+> | --------- | ------------------ | ---------------------------------------- |
+> | `200`     | `application/json` | `{"code": "200", "processDocument": ProcessDocument}`      |
+> | `400`     | `application/json` | `{"code":"400", "msg":"Bad Request"}` |
+> | `401`     | `application/json` | `{"code":"401", "msg":"Unauthorized"}` |
+> | `404`     | `application/json` | `{"code":"404", "msg": "Documento de processo não encontrado."}` |
+
+</details>
+
+<details>
+
+<summary><code>POST</code> <code><b>/api/process-document</b></code> <code>(Cria um documento de processo)</code></summary>
+
+#### • Auth (Nível de Acesso - Admin)
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `accessToken` | required | string    | Token de autorização do usuário |
+
+#### • Body
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `file`  | required | File    | Arquivo do processo |
+> | `processId` | required | number   | ID do processo |
+
+#### • Respostas
+
+> | http code | content-type       | response                                 |
+> | --------- | ------------------ | ---------------------------------------- |
+> | `201`     | `application/json` | `{"code": "201", "processDocument": CreadtedProcessDocument }`      |
+> | `400`     | `application/json` | `{"code":"400", "msg":"Bad Request"}` |
+> | `401`     | `application/json` | `{"code":"401", "msg":"Unauthorized"}` |
+
+</details>
+
+<details>
+
+<summary><code>PATCH</code> <code><b>/api/process-document/:id</b></code> <code>(Atualiza um documento de processo)</code></summary>
+
+#### • Auth (Nível de Acesso - Lawyer+)
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `accessToken` | required | string    | Token de autorização do usuário |
+
+#### • Parâmetros
+
+> | name      | type     | data type | description                     |
+> | --------- | -------- | --------- | ------------------------------- |
+> | `id`   | required | number    | ID do documento de processo |
+
+#### • Body
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `file`  | optional | File    | Arquivo do processo |
+> | `processId` | optional | number   | ID do processo |
+
+#### • Respostas
+
+> | http code | content-type       | response                                 |
+> | --------- | ------------------ | ---------------------------------------- |
+> | `201`     | `application/json` | `{"code": "201", "processDocument": UpdatedProcessDocument }`      |
+> | `400`     | `application/json` | `{"code":"400", "msg":"Bad Request"}` |
+> | `401`     | `application/json` | `{"code":"401", "msg":"Unauthorized"}` |
+> | `404`     | `application/json` | `{"code":"404", "msg": "Documento de processo não encontrado."}` |
+
+</details>
+
+<details>
+
+<summary><code>DELETE</code> <code><b>/api/process-document/:id</b></code> <code>(Deleta um documento de processo)</code></summary>
+
+#### • Auth (Nível de Acesso - Admin)
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `accessToken` | required | string    | Token de autorização do usuário |
+
+#### • Parâmetros
+
+> | name      | type     | data type | description                     |
+> | --------- | -------- | --------- | ------------------------------- |
+> | `id`   | required | number    | ID do documento de processo |
+
+#### • Respostas
+
+> | http code | content-type       | response                                 |
+> | --------- | ------------------ | ---------------------------------------- |
+> | `201`     | `application/json` | `{"code": "201", "processDocument": DeletedProcessDocument }`      |
+> | `400`     | `application/json` | `{"code":"400", "msg":"Bad Request"}` |
+> | `401`     | `application/json` | `{"code":"401", "msg":"Unauthorized"}` |
+
+</details>
+
+---
+
 ## 🤝 Equipe
 
 Membros da equipe de desenvolvimento do projeto:
