@@ -9,11 +9,11 @@ import {
 
 export class SpecialtyFilterDto {
   @IsOptional({ message: 'Usuário é opcional.' })
-  @IsNumberString({}, { message: 'Usuário deve ser um número.' })
+  @IsNumberString({}, { message: 'ID do usuário deve ser um número.' })
   user: number;
 
   @IsOptional({ message: 'Categoria é opcional.' })
-  @IsNumberString({}, { message: 'Categoria deve ser um número.' })
+  @IsNumberString({}, { message: 'ID da categoria deve ser um número.' })
   category: number;
 
   @IsOptional({ message: 'Trazer dados do usuário é opcional.' })

@@ -12,8 +12,9 @@ import { v4 as uuidv4 } from 'uuid';
 import { ProcessService } from '../process/process.service';
 import { FileService } from './../file/file.service';
 import { CreateProcessDocumentDto } from './dto/create-process-document.dto';
-import { ProcessDocument } from './entities/process-document.entity';
+import { ProcessDocumentFilterDto } from './dto/process-document-filter.dto';
 import { UpdateProcessDocumentDto } from './dto/update-process-document.dto';
+import { ProcessDocument } from './entities/process-document.entity';
 
 @Injectable()
 export class ProcessDocumentsService {
@@ -66,6 +67,27 @@ export class ProcessDocumentsService {
     return await this.processDocumentRepository.find();
   }
 
+  async findAllWithFilter(query: ProcessDocumentFilterDto) {
+    const { process, withProcess, limit, page, sort } = query;
+    const where = process ? { processId: process } : {};
+
+    // Ordenação
+    let sortObject: any;
+    try {
+      sortObject = JSON.parse(sort);
+    } catch (error) {
+      sortObject = { id: 'ASC' };
+    }
+
+    return await this.processDocumentRepository.find({
+      where,
+      relations: withProcess === 'true' ? ['process'] : [],
+      order: sortObject,
+      take: limit,
+      skip: limit * (page - 1) || 0,
+    });
+  }
+
   async findOne(id: number) {
     try {
       return await this.processDocumentRepository.findOneByOrFail({ id });
@@ -100,7 +122,6 @@ export class ProcessDocumentsService {
         delete updateProcessDocumentDto.file;
         await this.fileService.upload(file, path);
       } catch (error) {
-        console.log(error);
         throw new BadRequestException(
           'Erro ao atualizar o documento de processo.',
         );

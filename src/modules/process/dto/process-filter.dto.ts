@@ -66,13 +66,13 @@ export class ProcessFilterDto {
 
   @IsOptional({ message: 'Usuário é opcional.' })
   @IsNumber({}, { message: 'Usuário deve ser um número.' })
-  @IsPositive({ message: 'Usuário deve ser positivo.' })
+  @IsPositive({ message: 'ID do usuário deve ser positivo.' })
   @Type(() => Number)
   user: number;
 
   @IsOptional({ message: 'Categoria é opcional.' })
   @IsNumber({}, { message: 'Categoria deve ser um número.' })
-  @IsPositive({ message: 'Categoria deve ser positiva.' })
+  @IsPositive({ message: 'ID da categoria deve ser positiva.' })
   @Type(() => Number)
   category: number;
 

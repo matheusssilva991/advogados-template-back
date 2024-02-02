@@ -7,11 +7,13 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CreateProcessDocumentDto } from './dto/create-process-document.dto';
+import { ProcessDocumentFilterDto } from './dto/process-document-filter.dto';
 import { UpdateProcessDocumentDto } from './dto/update-process-document.dto';
 import { ProcessDocumentsService } from './process-documents.service';
 
@@ -32,7 +34,10 @@ export class ProcessDocumentsController {
   }
 
   @Get('process-documents')
-  async findAll() {
+  async findAll(@Query() query: ProcessDocumentFilterDto) {
+    if (Object.keys(query).length) {
+      return this.processDocumentsService.findAllWithFilter(query);
+    }
     return this.processDocumentsService.findAll();
   }
 
