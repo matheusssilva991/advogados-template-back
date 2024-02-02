@@ -1,6 +1,7 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CategoryModule } from '../category/category.module';
+import { ProcessDocumentsModule } from '../process-documents/process-documents.module';
 import { SpecialtyModule } from '../specialty/specialty.module';
 import { UserModule } from '../user/user.module';
 import { Process } from './entities/process.entity';
@@ -13,6 +14,7 @@ import { ProcessService } from './process.service';
     UserModule,
     CategoryModule,
     SpecialtyModule,
+    forwardRef(() => ProcessDocumentsModule),
   ],
   controllers: [ProcessController],
   providers: [ProcessService],

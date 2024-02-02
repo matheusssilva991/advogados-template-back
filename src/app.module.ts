@@ -1,11 +1,13 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { dataSourceOptions } from 'db/data-source';
-import { UserModule } from './modules/user/user.module';
+import { dataSourceOptions } from '../db/data-source.config';
 import { CategoryModule } from './modules/category/category.module';
-import { SpecialtyModule } from './modules/specialty/specialty.module';
+import { ProcessDocumentsModule } from './modules/process-documents/process-documents.module';
 import { ProcessModule } from './modules/process/process.module';
+import { SpecialtyModule } from './modules/specialty/specialty.module';
+import { UserModule } from './modules/user/user.module';
+import { FileModule } from './modules/file/file.module';
 
 @Module({
   imports: [
@@ -17,6 +19,8 @@ import { ProcessModule } from './modules/process/process.module';
     CategoryModule,
     SpecialtyModule,
     ProcessModule,
+    ProcessDocumentsModule,
+    FileModule,
   ],
   controllers: [],
   providers: [],

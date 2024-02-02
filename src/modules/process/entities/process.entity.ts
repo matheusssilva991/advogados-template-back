@@ -4,11 +4,13 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { Category } from '../../category/entities/category.entity';
 import { User } from '../../user/entities/user.entity';
+import { ProcessDocument } from '../../process-documents/entities/process-document.entity';
 
 @Entity({ name: 'processes', orderBy: { id: 'ASC' } })
 export class Process {
@@ -93,6 +95,12 @@ export class Process {
   @ManyToOne(() => Category, (category) => category.processes)
   @JoinColumn({ name: 'category_id' })
   category: Category;
+
+  @OneToMany(
+    () => ProcessDocument,
+    (processDocument) => processDocument.process,
+  )
+  processDocuments: ProcessDocument[];
 
   @CreateDateColumn({
     type: 'timestamp',

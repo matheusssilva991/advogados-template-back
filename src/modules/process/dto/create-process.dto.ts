@@ -5,6 +5,7 @@ import {
   IsNotEmpty,
   IsNumber,
   IsOptional,
+  IsPositive,
   IsString,
   Max,
   Min,
@@ -58,10 +59,12 @@ export class CreateProcessDto {
   legalOpinion?: string;
 
   @IsNumber({}, { message: 'ID do usuário deve ser um número.' })
+  @IsPositive({ message: 'ID do usuário deve ser um número positivo.' })
   @IsOptional({ message: 'ID do usuário é opcional.' })
   userId: number;
 
   @IsNumber({}, { message: 'ID da categoria deve ser um número.' })
+  @IsPositive({ message: 'ID da categoria deve ser um número positivo.' })
   @IsNotEmpty({ message: 'ID da categoria é obrigatório.' })
   categoryId: number;
 }

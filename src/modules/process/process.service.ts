@@ -1,3 +1,4 @@
+import { ProcessDocumentsService } from './../process-documents/process-documents.service';
 import {
   BadRequestException,
   Injectable,
@@ -24,6 +25,7 @@ export class ProcessService {
     private readonly userService: UserService,
     private readonly categoryService: CategoryService,
     private readonly specialtyService: SpecialtyService,
+    private readonly ProcessDocumentService: ProcessDocumentsService,
   ) {}
 
   async create(createProcessDto: CreateProcessDto) {
@@ -256,16 +258,17 @@ export class ProcessService {
 
   async remove(id: number) {
     await this.findOne(id);
+    await this.ProcessDocumentService.removeFilesByProcessId(id);
     return await this.processRepository.delete(id);
   }
 
   async removeMany(ids: number[]) {
     // Verifica se os processos existem
+    const count = ids.length;
     for (const id of ids) {
-      await this.findOne(id);
+      await this.remove(id);
     }
-
-    return await this.processRepository.delete(ids);
+    return { removed: count };
   }
 
   async processKeyAlreadyExists(processKey: string) {
