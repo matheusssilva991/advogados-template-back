@@ -120,7 +120,7 @@ Para acessar as rotas do projeto:
 > | `name`  | opcional | string    | Nome do usuário |
 > | `nroOAB` | opcional | string   | Número da oab |
 > | `role` | opcional | string    | Cargo do usuário |
-> | `limit` | opcional | number    | Limite de usuários por página |
+> | `limit` | opcional | number    | Limite de registros por página |
 > | `page` | opcional | number    | Página |
 > | `sort` | opcional | object   | Chaves de ordenação |
 
@@ -211,10 +211,10 @@ Para acessar as rotas do projeto:
 
 > | name    | type     | data type | description                     |
 > | ------- | -------- | --------- | ------------------------------- |
-> | `name` | required | string    | Nome do usuário |
-> | `email` | required | string    | E-mail do usuário |
+> | `name` | optional | string    | Nome do usuário |
+> | `email` | optional | string    | E-mail do usuário |
 > | `phoneNumber` | optional | string    | Telefone do usuário |
-> | `password` | required | string    | Senha do usuário |
+> | `password` | optional | string    | Senha do usuário |
 > | `nroOAB` | optional | string    | Número da OAB do usuário |
 > | `role` | optional | string    | Cargo do usuário |
 
@@ -274,7 +274,7 @@ Para acessar as rotas do projeto:
 
 > | name    | type     | data type | description                     |
 > | ------- | -------- | --------- | ------------------------------- |
-> | `limit` | opcional | number    | Limite de categorias por página |
+> | `limit` | opcional | number    | Limite de registros por página |
 > | `page` | opcional | number    | Página |
 > | `sort` | opcional | object   | Chaves de ordenação |
 
@@ -334,7 +334,7 @@ Para acessar as rotas do projeto:
 
 > | http code | content-type       | response                                 |
 > | --------- | ------------------ | ---------------------------------------- |
-> | `201`     | `application/json` | `{"code": "201", "category": CreadtedCategory }`      |
+> | `201`     | `application/json` | `{"code": "201", "category": CreatedCategory }`      |
 > | `400`     | `application/json` | `{"code":"400", "msg":"Bad Request"}` |
 > | `401`     | `application/json` | `{"code":"401", "msg":"Unauthorized"}` |
 
@@ -360,7 +360,7 @@ Para acessar as rotas do projeto:
 
 > | name    | type     | data type | description                     |
 > | ------- | -------- | --------- | ------------------------------- |
-> | `name` | required | string    | Nome da categoria |
+> | `name` | optional | string    | Nome da categoria |
 
 #### • Respostas
 
@@ -422,7 +422,7 @@ Para acessar as rotas do projeto:
 > | `category` | opcional | string   | ID da categoria |
 > | `withUser` | opcional | bolean   | Trazer ou não dados de usuário |
 > | `withCategory` | opcional | bolean   | Trazer ou não dados da categoria |
-> | `limit` | opcional | number    | Limite de especialidades por página |
+> | `limit` | opcional | number    | Limite de registros por página |
 > | `page` | opcional | number    | Página |
 > | `sort` | opcional | object   | Chaves de ordenação |
 
@@ -494,7 +494,7 @@ Para acessar as rotas do projeto:
 
 <summary><code>PATCH</code> <code><b>/api/specialty/:id</b></code> <code>(Atualiza uma especialidade)</code></summary>
 
-#### • Auth (Nível de Acesso - Lawyer+)
+#### • Auth (Nível de Acesso - Admin)
 
 > | name    | type     | data type | description                     |
 > | ------- | -------- | --------- | ------------------------------- |
@@ -510,8 +510,8 @@ Para acessar as rotas do projeto:
 
 > | name    | type     | data type | description                     |
 > | ------- | -------- | --------- | ------------------------------- |
-> | `affinity` | required | number    | Nível de especialidade do usuário |
-> | `userId` | required | string    | ID do usuário |
+> | `affinity` | optional | number    | Nível de especialidade do usuário |
+> | `userId` | optional | string    | ID do usuário |
 > | `categoryId` | optional | string    | ID da categoria |
 
 #### • Respostas
@@ -585,7 +585,7 @@ Para acessar as rotas do projeto:
 > | `category` | opcional | number   | ID da categoria |
 > | `withUser` | opcional | bolean   | Trazer ou não dados de usuário |
 > | `withCategory` | opcional | bolean   | Trazer ou não dados da categoria |
-> | `limit` | opcional | number    | Limite de especialidades por página |
+> | `limit` | opcional | number    | Limite de registros por página |
 > | `page` | opcional | number    | Página |
 > | `sort` | opcional | object   | Chaves de ordenação |
 
@@ -666,7 +666,7 @@ Para acessar as rotas do projeto:
 
 <summary><code>PATCH</code> <code><b>/api/process/:id</b></code> <code>(Atualiza um processo)</code></summary>
 
-#### • Auth (Nível de Acesso - Lawyer+)
+#### • Auth (Nível de Acesso - Admin)
 
 > | name    | type     | data type | description                     |
 > | ------- | -------- | --------- | ------------------------------- |
@@ -710,7 +710,7 @@ Para acessar as rotas do projeto:
 
 <summary><code>PATCH</code> <code><b>/api/processes</b></code> <code>(Atualiza processos)</code></summary>
 
-#### • Auth (Nível de Acesso - Lawyer+)
+#### • Auth (Nível de Acesso - Admin)
 
 > | name    | type     | data type | description                     |
 > | ------- | -------- | --------- | ------------------------------- |
@@ -791,7 +791,7 @@ Para acessar as rotas do projeto:
 
 <details>
 
-<summary><code>GET</code> <code><b>/api/processDocuments</b></code> <code>(Retorna os documentos de processo)</code></summary>
+<summary><code>GET</code> <code><b>/api/process-documents</b></code> <code>(Retorna os documentos de processo)</code></summary>
 
 #### • Auth (Nível de Acesso - Lawyers+)
 
@@ -804,8 +804,8 @@ Para acessar as rotas do projeto:
 > | name    | type     | data type | description                     |
 > | ------- | -------- | --------- | ------------------------------- |
 > | `process` | opcional | number   | ID do processo |
-> | `withCategory` | opcional | bolean   | Trazer ou não dados do processo |
-> | `limit` | opcional | number    | Limite de especialidades por página |
+> | `withProcess` | opcional | bolean   | Trazer ou não dados do processo |
+> | `limit` | opcional | number    | Limite de registros por página |
 > | `page` | opcional | number    | Página |
 > | `sort` | opcional | object   | Chaves de ordenação |
 
@@ -876,7 +876,7 @@ Para acessar as rotas do projeto:
 
 <summary><code>PATCH</code> <code><b>/api/process-document/:id</b></code> <code>(Atualiza um documento de processo)</code></summary>
 
-#### • Auth (Nível de Acesso - Lawyer+)
+#### • Auth (Nível de Acesso - Admin)
 
 > | name    | type     | data type | description                     |
 > | ------- | -------- | --------- | ------------------------------- |
@@ -927,6 +927,304 @@ Para acessar as rotas do projeto:
 > | http code | content-type       | response                                 |
 > | --------- | ------------------ | ---------------------------------------- |
 > | `201`     | `application/json` | `{"code": "201", "processDocument": DeletedProcessDocument }`      |
+> | `400`     | `application/json` | `{"code":"400", "msg":"Bad Request"}` |
+> | `401`     | `application/json` | `{"code":"401", "msg":"Unauthorized"}` |
+
+</details>
+
+---
+
+### • Requisição de revisão
+
+<details>
+
+<summary><code>GET</code> <code><b>/api/revision-requests</b></code> <code>(Retorna as requisições de revisão)</code></summary>
+
+#### • Auth (Nível de Acesso - Lawyers+)
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `accessToken` | required | string    | Token de autorização do usuário |
+
+#### • Query
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `title` | opcional | string  | Titulo da requisição de revisão |
+> | `description` | opcional | string   | Descrição da requisição de revisão |
+> | `process` | opcional | number   | ID do processo |
+> | `withProcess` | opcional | bolean   | Trazer ou não dados do processo |
+> | `limit` | opcional | number    | Limite de registros por página |
+> | `page` | opcional | number    | Página |
+> | `sort` | opcional | object   | Chaves de ordenação |
+
+#### • Respostas
+
+> | http code | content-type       | response                                 |
+> | --------- | ------------------ | ---------------------------------------- |
+> | `200`     | `application/json` | `{"code": "200", "revisionRequest": [RevisionRequest]}`      |
+> | `401`     | `application/json` | `{"code":"401", "msg":"Unauthorized"}` |
+
+</details>
+
+<details>
+
+<summary><code>GET</code> <code><b>/api/revision-request/:id</b></code> <code>(Retorna uma requisição de revisão)</code></summary>
+
+#### • Auth (Nível de Acesso - Lawyers+)
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `accessToken` | required | string    | Token de autorização do usuário |
+
+#### • Parâmetros
+
+> | name      | type     | data type | description                     |
+> | --------- | -------- | --------- | ------------------------------- |
+> | `id`   | required | number    | ID da requisição de revisão |
+
+#### • Respostas
+
+> | http code | content-type       | response                                 |
+> | --------- | ------------------ | ---------------------------------------- |
+> | `200`     | `application/json` | `{"code": "200", "revisionRequest": RevisionRequest}`      |
+> | `400`     | `application/json` | `{"code":"400", "msg":"Bad Request"}` |
+> | `401`     | `application/json` | `{"code":"401", "msg":"Unauthorized"}` |
+> | `404`     | `application/json` | `{"code":"404", "msg": "Requisição de revisão não encontrada."}` |
+
+</details>
+
+<details>
+
+<summary><code>POST</code> <code><b>/api/revision-request</b></code> <code>(Cria uma requisição de revisão)</code></summary>
+
+#### • Auth (Nível de Acesso - Lawyer)
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `accessToken` | required | string    | Token de autorização do usuário |
+
+#### • Body
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `title`  | required | string  | Titulo da requisição de revisão |
+> | `description`  | required | string | Descrição da requisição de revisão |
+> | `processId` | required | number   | ID do processo |
+
+#### • Respostas
+
+> | http code | content-type       | response                                 |
+> | --------- | ------------------ | ---------------------------------------- |
+> | `201`     | `application/json` | `{"code": "201", "revisionRequest": CreadtedRevisionRequest }`      |
+> | `400`     | `application/json` | `{"code":"400", "msg":"Bad Request"}` |
+> | `401`     | `application/json` | `{"code":"401", "msg":"Unauthorized"}` |
+
+</details>
+
+<details>
+
+<summary><code>PATCH</code> <code><b>/api/revision-request/:id</b></code> <code>(Atualiza uma requisição de revisão)</code></summary>
+
+#### • Auth (Nível de Acesso - Lawyer)
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `accessToken` | required | string    | Token de autorização do usuário |
+
+#### • Parâmetros
+
+> | name      | type     | data type | description                     |
+> | --------- | -------- | --------- | ------------------------------- |
+> | `id`   | required | number    | ID da requisição de revisão |
+
+#### • Body
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `title`  | optional | string  | Titulo da requisição de revisão |
+> | `description`  | optional | string | Descrição da requisição de revisão |
+> | `processId` | optional | number   | ID do processo |
+
+#### • Respostas
+
+> | http code | content-type       | response                                 |
+> | --------- | ------------------ | ---------------------------------------- |
+> | `201`     | `application/json` | `{"code": "201", "revisionRequest": UpdatedRevisionRequest }`      |
+> | `400`     | `application/json` | `{"code":"400", "msg":"Bad Request"}` |
+> | `401`     | `application/json` | `{"code":"401", "msg":"Unauthorized"}` |
+> | `404`     | `application/json` | `{"code":"404", "msg": "Requisição de revisão não encontrada."}` |
+
+</details>
+
+<details>
+
+<summary><code>DELETE</code> <code><b>/api/revision-request/:id</b></code> <code>(Deleta uma requisição de revisão)</code></summary>
+
+#### • Auth (Nível de Acesso - Lawyer)
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `accessToken` | required | string    | Token de autorização do usuário |
+
+#### • Parâmetros
+
+> | name      | type     | data type | description                     |
+> | --------- | -------- | --------- | ------------------------------- |
+> | `id`   | required | number    | ID da requisição de revisão |
+
+#### • Respostas
+
+> | http code | content-type       | response                                 |
+> | --------- | ------------------ | ---------------------------------------- |
+> | `201`     | `application/json` | `{"code": "201", "revisionRequest": DeletedRevisionRequest }`      |
+> | `400`     | `application/json` | `{"code":"400", "msg":"Bad Request"}` |
+> | `401`     | `application/json` | `{"code":"401", "msg":"Unauthorized"}` |
+
+</details>
+
+---
+
+### • Documentos de Requisição de revisão
+
+<details>
+
+<summary><code>GET</code> <code><b>/api/revision-request-documents</b></code> <code>(Retorna os documentos de requisição de revisão)</code></summary>
+
+#### • Auth (Nível de Acesso - Lawyers+)
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `accessToken` | required | string    | Token de autorização do usuário |
+
+#### • Query
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `revisionRequest` | opcional | number   | ID da requisição de revisão |
+> | `withRevisionRequest` | opcional | bolean   | Trazer ou não dados da requisição de revisão |
+> | `limit` | opcional | number    | Limite de registros por página |
+> | `page` | opcional | number    | Página |
+> | `sort` | opcional | object   | Chaves de ordenação |
+
+#### • Respostas
+
+> | http code | content-type       | response                                 |
+> | --------- | ------------------ | ---------------------------------------- |
+> | `200`     | `application/json` | `{"code": "200", "revisionRequestDocuments": [RevisionRequestDocument]}`      |
+> | `401`     | `application/json` | `{"code":"401", "msg":"Unauthorized"}` |
+
+</details>
+
+<details>
+
+<summary><code>GET</code> <code><b>/api/revision-request-document/:id</b></code> <code>(Retorna um documento de requisição de revisão)</code></summary>
+
+#### • Auth (Nível de Acesso - Lawyers+)
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `accessToken` | required | string    | Token de autorização do usuário |
+
+#### • Parâmetros
+
+> | name      | type     | data type | description                     |
+> | --------- | -------- | --------- | ------------------------------- |
+> | `id`   | required | number    | ID do documento de requisição de revisão |
+
+#### • Respostas
+
+> | http code | content-type       | response                                 |
+> | --------- | ------------------ | ---------------------------------------- |
+> | `200`     | `application/json` | `{"code": "200", "revisionRequestDocument": RevisionRequestDocument}`      |
+> | `400`     | `application/json` | `{"code":"400", "msg":"Bad Request"}` |
+> | `401`     | `application/json` | `{"code":"401", "msg":"Unauthorized"}` |
+> | `404`     | `application/json` | `{"code":"404", "msg": "Documento de requisição de revisão não encontrado."}` |
+
+</details>
+
+<details>
+
+<summary><code>POST</code> <code><b>/api/revision-request-document</b></code> <code>(Cria um documento de requisição de revisão)</code></summary>
+
+#### • Auth (Nível de Acesso - Lawyer)
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `accessToken` | required | string    | Token de autorização do usuário |
+
+#### • Body
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `file`  | required | File    | Arquivo da requisição de revisão |
+> | `revisionRequestId` | required | number   | ID da requisição de revisão |
+
+#### • Respostas
+
+> | http code | content-type       | response                                 |
+> | --------- | ------------------ | ---------------------------------------- |
+> | `201`     | `application/json` | `{"code": "201", "revisionRequestDocument": CreadtedRevisionRequestDocument }`      |
+> | `400`     | `application/json` | `{"code":"400", "msg":"Bad Request"}` |
+> | `401`     | `application/json` | `{"code":"401", "msg":"Unauthorized"}` |
+
+</details>
+
+<details>
+
+<summary><code>PATCH</code> <code><b>/api/revision-request-document/:id</b></code> <code>(Atualiza um documento de requisição de revisão)</code></summary>
+
+#### • Auth (Nível de Acesso - Lawyer)
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `accessToken` | required | string    | Token de autorização do usuário |
+
+#### • Parâmetros
+
+> | name      | type     | data type | description                     |
+> | --------- | -------- | --------- | ------------------------------- |
+> | `id`   | required | number    | ID do documento de requisição de revisão |
+
+#### • Body
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `file`  | optional | File    | Arquivo da requisição de revisão |
+> | `revisionRequestId` | optional | number   | ID da requisição de revisão |
+
+#### • Respostas
+
+> | http code | content-type       | response                                 |
+> | --------- | ------------------ | ---------------------------------------- |
+> | `201`     | `application/json` | `{"code": "201", "revisionRequestDocument": UpdatedRevisionRequestDocument }`      |
+> | `400`     | `application/json` | `{"code":"400", "msg":"Bad Request"}` |
+> | `401`     | `application/json` | `{"code":"401", "msg":"Unauthorized"}` |
+> | `404`     | `application/json` | `{"code":"404", "msg": "Documento de requisição de revisão não encontrado."}` |
+
+</details>
+
+<details>
+
+<summary><code>DELETE</code> <code><b>/api/revision-request-document/:id</b></code> <code>(Deleta um documento de requisição de revisão)</code></summary>
+
+#### • Auth (Nível de Acesso - Lawyer)
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `accessToken` | required | string    | Token de autorização do usuário |
+
+#### • Parâmetros
+
+> | name      | type     | data type | description                     |
+> | --------- | -------- | --------- | ------------------------------- |
+> | `id`   | required | number    | ID do documento de requisição de revisão |
+
+#### • Respostas
+
+> | http code | content-type       | response                                 |
+> | --------- | ------------------ | ---------------------------------------- |
+> | `201`     | `application/json` | `{"code": "201", "revisionRequestDocument": DeletedRevisionRequestDocument }`      |
 > | `400`     | `application/json` | `{"code":"400", "msg":"Bad Request"}` |
 > | `401`     | `application/json` | `{"code":"401", "msg":"Unauthorized"}` |
 
