@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
@@ -14,6 +15,7 @@ import { CreateRevisionRequestDocumentDto } from './dto/create-revision-request-
 import { UpdateRevisionRequestDocumentDto } from './dto/update-revision-request-document.dto';
 import { RevisionRequestDocumentsService } from './revision-request-documents.service';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { RevisionRequestDocFilterDto } from './dto/revision-request-doc-filter.dto';
 
 @Controller('api')
 export class RevisionRequestDocumentsController {
@@ -34,7 +36,10 @@ export class RevisionRequestDocumentsController {
   }
 
   @Get('revision-request-documents')
-  async findAll() {
+  async findAll(@Query() query: RevisionRequestDocFilterDto) {
+    if (Object.keys(query).length) {
+      return this.revisionRequestDocumentsService.findAllWithFilter(query);
+    }
     return this.revisionRequestDocumentsService.findAll();
   }
 

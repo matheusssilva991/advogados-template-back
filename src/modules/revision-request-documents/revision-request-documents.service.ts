@@ -12,6 +12,7 @@ import { RevisionRequestService } from '../revision-request/revision-request.ser
 import { CreateRevisionRequestDocumentDto } from './dto/create-revision-request-document.dto';
 import { UpdateRevisionRequestDocumentDto } from './dto/update-revision-request-document.dto';
 import { RevisionRequestDocument } from './entities/revision-request-document.entity';
+import { RevisionRequestDocFilterDto } from './dto/revision-request-doc-filter.dto';
 
 @Injectable()
 export class RevisionRequestDocumentsService {
@@ -68,6 +69,27 @@ export class RevisionRequestDocumentsService {
 
   async findAll() {
     return await this.revisionRequestDocumentRepository.find();
+  }
+
+  async findAllWithFilter(query: RevisionRequestDocFilterDto) {
+    const { revisionRequest, withRevisionRequest, limit, page, sort } = query;
+    const where = revisionRequest ? { revisionRequestId: revisionRequest } : {};
+
+    // Ordenação
+    let sortObject: any;
+    try {
+      sortObject = JSON.parse(sort);
+    } catch (error) {
+      sortObject = { id: 'ASC' };
+    }
+
+    return await this.revisionRequestDocumentRepository.find({
+      where,
+      relations: withRevisionRequest === 'true' ? ['revision_request'] : [],
+      order: sortObject,
+      take: limit,
+      skip: limit * (page - 1) || 0,
+    });
   }
 
   async findOne(id: number) {
