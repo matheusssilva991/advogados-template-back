@@ -1388,6 +1388,153 @@ Para acessar as rotas do projeto:
 
 ---
 
+### • Documentos de Resposta de revisão
+
+<details>
+
+<summary><code>GET</code> <code><b>/api/revision-response-documents</b></code> <code>(Retorna os documentos de resposta de revisão)</code></summary>
+
+#### • Auth (Nível de Acesso - Lawyers+)
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `accessToken` | required | string    | Token de autorização do usuário |
+
+#### • Query
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `revisionResponse` | opcional | number   | ID da resposta de revisão |
+> | `withRevisionResponse` | opcional | bolean   | Trazer ou não dados da resposta de revisão |
+> | `limit` | opcional | number    | Limite de registros por página |
+> | `page` | opcional | number    | Página |
+> | `sort` | opcional | object   | Chaves de ordenação |
+
+#### • Respostas
+
+> | http code | content-type       | response                                 |
+> | --------- | ------------------ | ---------------------------------------- |
+> | `200`     | `application/json` | `{"code": "200", "revisionResponseDocuments": [RevisionResponseDocument]}`      |
+> | `401`     | `application/json` | `{"code":"401", "msg":"Unauthorized"}` |
+
+</details>
+
+<details>
+
+<summary><code>GET</code> <code><b>/api/revision-response-document/:id</b></code> <code>(Retorna um documento de resposta de revisão)</code></summary>
+
+#### • Auth (Nível de Acesso - Lawyers+)
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `accessToken` | required | string    | Token de autorização do usuário |
+
+#### • Parâmetros
+
+> | name      | type     | data type | description                     |
+> | --------- | -------- | --------- | ------------------------------- |
+> | `id`   | required | number    | ID do documento de resposta de revisão |
+
+#### • Respostas
+
+> | http code | content-type       | response                                 |
+> | --------- | ------------------ | ---------------------------------------- |
+> | `200`     | `application/json` | `{"code": "200", "revisionResponseDocument": RevisionResponseDocument}`      |
+> | `400`     | `application/json` | `{"code":"400", "msg":"Bad Request"}` |
+> | `401`     | `application/json` | `{"code":"401", "msg":"Unauthorized"}` |
+> | `404`     | `application/json` | `{"code":"404", "msg": "Documento de resposta de revisão não encontrado."}` |
+
+</details>
+
+<details>
+
+<summary><code>POST</code> <code><b>/api/revision-response-document</b></code> <code>(Cria um documento de resposta de revisão)</code></summary>
+
+#### • Auth (Nível de Acesso - Admin)
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `accessToken` | required | string    | Token de autorização do usuário |
+
+#### • Body
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `file`  | required | File    | Arquivo da resposta de revisão |
+> | `revisionResponseId` | required | number   | ID da resposta de revisão |
+
+#### • Respostas
+
+> | http code | content-type       | response                                 |
+> | --------- | ------------------ | ---------------------------------------- |
+> | `201`     | `application/json` | `{"code": "201", "revisionResponseDocument": CreadtedRevisionResponseDocument }`      |
+> | `400`     | `application/json` | `{"code":"400", "msg":"Bad Request"}` |
+> | `401`     | `application/json` | `{"code":"401", "msg":"Unauthorized"}` |
+
+</details>
+
+<details>
+
+<summary><code>PATCH</code> <code><b>/api/revision-response-document/:id</b></code> <code>(Atualiza um documento de resposta de revisão)</code></summary>
+
+#### • Auth (Nível de Acesso - Admin)
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `accessToken` | required | string    | Token de autorização do usuário |
+
+#### • Parâmetros
+
+> | name      | type     | data type | description                     |
+> | --------- | -------- | --------- | ------------------------------- |
+> | `id`   | required | number    | ID do documento de resposta de revisão |
+
+#### • Body
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `file`  | optional | File    | Arquivo da resposta de revisão |
+> | `revisionResponseId` | optional | number   | ID da resposta de revisão |
+
+#### • Respostas
+
+> | http code | content-type       | response                                 |
+> | --------- | ------------------ | ---------------------------------------- |
+> | `201`     | `application/json` | `{"code": "201", "revisionResponseDocument": UpdatedRevisionResponseDocument }`      |
+> | `400`     | `application/json` | `{"code":"400", "msg":"Bad Request"}` |
+> | `401`     | `application/json` | `{"code":"401", "msg":"Unauthorized"}` |
+> | `404`     | `application/json` | `{"code":"404", "msg": "Documento de resposta de revisão não encontrado."}` |
+
+</details>
+
+<details>
+
+<summary><code>DELETE</code> <code><b>/api/revision-response-document/:id</b></code> <code>(Deleta um documento de resposta de revisão)</code></summary>
+
+#### • Auth (Nível de Acesso - Admin)
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `accessToken` | required | string    | Token de autorização do usuário |
+
+#### • Parâmetros
+
+> | name      | type     | data type | description                     |
+> | --------- | -------- | --------- | ------------------------------- |
+> | `id`   | required | number    | ID do documento de resposta de revisão |
+
+#### • Respostas
+
+> | http code | content-type       | response                                 |
+> | --------- | ------------------ | ---------------------------------------- |
+> | `201`     | `application/json` | `{"code": "201", "revisionResponseDocument": DeletedRevisionResponseDocument }`      |
+> | `400`     | `application/json` | `{"code":"400", "msg":"Bad Request"}` |
+> | `401`     | `application/json` | `{"code":"401", "msg":"Unauthorized"}` |
+
+</details>
+
+---
+
 ## 🤝 Equipe
 
 Membros da equipe de desenvolvimento do projeto:
