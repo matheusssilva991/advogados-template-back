@@ -1,9 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import { RevisionRequestService } from '../revision-request/revision-request.service';
 import { UserService } from '../user/user.service';
 import { CreateRevisionResponseDto } from './dto/create-revision-response.dto';
+import { RevisionResponseFilterDto } from './dto/revision-response-filter.dto';
 import { UpdateRevisionResponseDto } from './dto/update-revision-response.dto';
 import { RevisionResponse } from './entities/revision-response.entity';
 
@@ -34,6 +35,44 @@ export class RevisionResponseService {
 
   async findAll() {
     return await this.revisionResponseRepository.find();
+  }
+
+  async findAllWithFilter(query: RevisionResponseFilterDto) {
+    const relations = [];
+
+    // Trazer dados do processo
+    query.withUser === 'true' && relations.push('process');
+    query.withRequest === 'true' && relations.push('revision_request');
+
+    const filter = {
+      ...(query.title && {
+        title: ILike(`%${query.title}%`),
+      }),
+      ...(query.description && {
+        description: ILike(`%${query.description}%`),
+      }),
+      ...(query.process && { revisionRequest: { processId: query.process } }),
+      ...(query.revisionRequest && {
+        revisionRequestId: query.revisionRequest,
+      }),
+      ...(query.user && { userId: query.user }),
+    };
+
+    // Ordenação
+    let sortObject: any;
+    try {
+      sortObject = JSON.parse(query.sort);
+    } catch (error) {
+      sortObject = { id: 'ASC' };
+    }
+
+    return await this.revisionResponseRepository.find({
+      where: filter,
+      order: sortObject,
+      take: query.limit || undefined,
+      skip: (query.page - 1) * query.limit || 0,
+      relations: relations,
+    });
   }
 
   async findOne(id: number) {

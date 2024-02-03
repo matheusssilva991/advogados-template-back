@@ -7,8 +7,10 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { CreateRevisionResponseDto } from './dto/create-revision-response.dto';
+import { RevisionResponseFilterDto } from './dto/revision-response-filter.dto';
 import { UpdateRevisionResponseDto } from './dto/update-revision-response.dto';
 import { RevisionResponseService } from './revision-response.service';
 
@@ -24,7 +26,10 @@ export class RevisionResponseController {
   }
 
   @Get('revision-responses')
-  async findAll() {
+  async findAll(@Query() query: RevisionResponseFilterDto) {
+    if (Object.keys(query).length) {
+      return this.revisionResponseService.findAllWithFilter(query);
+    }
     return this.revisionResponseService.findAll();
   }
 
