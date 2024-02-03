@@ -74,8 +74,26 @@ export class RevisionResponseDocumentsService {
   }
 
   async findAllWithFilter(query: RevisionResponseDocFilterDto) {
-    console.log(query);
-    return await this.revisionResponseDocumentRepository.find();
+    const { revisionResponse, withRevisionResponse, limit, page, sort } = query;
+    const where = revisionResponse
+      ? { revisionResponseId: revisionResponse }
+      : {};
+
+    // Ordenação
+    let sortObject: any;
+    try {
+      sortObject = JSON.parse(sort);
+    } catch (error) {
+      sortObject = { id: 'ASC' };
+    }
+
+    return await this.revisionResponseDocumentRepository.find({
+      where,
+      relations: withRevisionResponse === 'true' ? ['revision_response'] : [],
+      order: sortObject,
+      take: limit,
+      skip: limit * (page - 1) || 0,
+    });
   }
 
   async findOne(id: number) {
