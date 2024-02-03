@@ -4,10 +4,12 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { RevisionRequest } from '../../revision-request/entities/revision-request.entity';
+import { RevisionResponseDocument } from '../../revision-response-documents/entities/revision-response-document.entity';
 import { User } from '../../user/entities/user.entity';
 
 @Entity({ name: 'revision_response', orderBy: { id: 'ASC' } })
@@ -45,6 +47,12 @@ export class RevisionResponse {
   })
   @JoinColumn({ name: 'user_id' })
   user: User;
+
+  @OneToMany(
+    () => RevisionResponseDocument,
+    (revisionResponseDocument) => revisionResponseDocument.revisionResponse,
+  )
+  revisionResponseDocuments: RevisionResponseDocument[];
 
   @CreateDateColumn({
     type: 'timestamp',

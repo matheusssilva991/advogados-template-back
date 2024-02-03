@@ -11,6 +11,7 @@ import { FileModule } from './modules/file/file.module';
 import { RevisionRequestModule } from './modules/revision-request/revision-request.module';
 import { RevisionRequestDocumentsModule } from './modules/revision-request-documents/revision-request-documents.module';
 import { RevisionResponseModule } from './modules/revision-response/revision-response.module';
+import { RevisionResponseDocumentsModule } from './modules/revision-response-documents/revision-response-documents.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { RevisionResponseModule } from './modules/revision-response/revision-res
     RevisionRequestModule,
     RevisionRequestDocumentsModule,
     RevisionResponseModule,
+    RevisionResponseDocumentsModule,
   ],
   controllers: [],
   providers: [],

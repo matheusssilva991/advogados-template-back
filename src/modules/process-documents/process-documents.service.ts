@@ -139,16 +139,6 @@ export class ProcessDocumentsService {
     return await this.processDocumentRepository.remove(processDocument);
   }
 
-  async removeFilesByProcessId(processId: number) {
-    const processDocuments = await this.processDocumentRepository.find({
-      where: { processId },
-    });
-
-    processDocuments.forEach(async (processDocument) => {
-      await this.fileService.deleteFile(processDocument.filePath);
-    });
-  }
-
   makePath(fileName: string) {
     return join(
       __dirname,

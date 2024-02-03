@@ -15,9 +15,11 @@ export class CreateRevisionRequestDocumentDto extends PickType(
     'updatedAt',
   ],
 ) {
-  @IsNumber({}, { message: 'O id da revisão deve ser um número' })
-  @IsPositive({ message: 'O id da revisão deve ser um número positivo' })
-  @IsNotEmpty({ message: 'O id da revisão é obrigatório' })
+  @IsNumber({}, { message: 'O id da requisição revisão deve ser um número.' })
+  @IsPositive({
+    message: 'O id da requisição revisão deve ser um número positivo.',
+  })
+  @IsNotEmpty({ message: 'O id da requisição revisão é obrigatório.' })
   @Type(() => Number)
   revisionRequestId: number;
 }

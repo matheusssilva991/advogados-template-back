@@ -63,7 +63,9 @@ export class RevisionRequestDocumentsService {
         revisionRequestDocument,
       );
     } catch (error) {
-      throw new BadRequestException('Erro ao criar o documento de processo.');
+      throw new BadRequestException(
+        'Erro ao criar o documento de requisição de revisão.',
+      );
     }
   }
 
@@ -135,7 +137,7 @@ export class RevisionRequestDocumentsService {
         await this.fileService.upload(file, path);
       } catch (error) {
         throw new BadRequestException(
-          'Erro ao atualizar o documento de processo.',
+          'Erro ao atualizar o documento de requisição de revisão.',
         );
       }
     }
@@ -151,29 +153,6 @@ export class RevisionRequestDocumentsService {
     return await this.revisionRequestDocumentRepository.remove(
       revisionRequestDocument,
     );
-  }
-
-  async removeFilesByRevisionRequestId(revisionRequestId: number) {
-    const revisionRequestDocuments =
-      await this.revisionRequestDocumentRepository.find({
-        where: { revisionRequestId },
-      });
-
-    revisionRequestDocuments.forEach(async (revisionRequestDocument) => {
-      await this.fileService.deleteFile(revisionRequestDocument.filePath);
-    });
-  }
-
-  async removeFilesByProcessId(processId: number) {
-    const revisionRequestDocuments =
-      await this.revisionRequestDocumentRepository.find({
-        relations: ['revisionRequest'],
-        where: { revisionRequest: { processId } },
-      });
-
-    revisionRequestDocuments.forEach(async (revisionRequestDocument) => {
-      await this.fileService.deleteFile(revisionRequestDocument.filePath);
-    });
   }
 
   makePath(fileName: string) {
