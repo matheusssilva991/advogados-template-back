@@ -13,7 +13,7 @@ import { User } from '../../user/entities/user.entity';
 import { ProcessDocument } from '../../process-documents/entities/process-document.entity';
 import { RevisionRequest } from '../../revision-request/entities/revision-request.entity';
 
-@Entity({ name: 'processes', orderBy: { id: 'ASC' } })
+@Entity({ name: 'process', orderBy: { id: 'ASC' } })
 export class Process {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id', unsigned: true })
   id: number;

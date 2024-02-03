@@ -11,7 +11,7 @@ import {
 } from 'typeorm';
 import { RevisionRequest } from '../../revision-request/entities/revision-request.entity';
 
-@Entity({ name: 'revision_request_documents', orderBy: { id: 'ASC' } })
+@Entity({ name: 'revision_request_document', orderBy: { id: 'ASC' } })
 export class RevisionRequestDocument {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id', unsigned: true })
   id: number;

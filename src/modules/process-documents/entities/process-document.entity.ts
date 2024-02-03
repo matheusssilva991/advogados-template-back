@@ -11,7 +11,7 @@ import {
 } from 'typeorm';
 import { Process } from '../../process/entities/process.entity';
 
-@Entity({ name: 'process_documents', orderBy: { id: 'ASC' } })
+@Entity({ name: 'process_document', orderBy: { id: 'ASC' } })
 export class ProcessDocument {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id', unsigned: true })
   id: number;

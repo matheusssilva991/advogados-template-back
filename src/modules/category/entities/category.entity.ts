@@ -9,7 +9,7 @@ import {
 import { Specialty } from '../../../modules/specialty/entities/specialty.entity';
 import { Process } from '../../process/entities/process.entity';
 
-@Entity({ name: 'categories', orderBy: { id: 'ASC' } })
+@Entity({ name: 'category', orderBy: { id: 'ASC' } })
 export class Category {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id', unsigned: true })
   id: number;

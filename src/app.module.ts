@@ -10,6 +10,7 @@ import { UserModule } from './modules/user/user.module';
 import { FileModule } from './modules/file/file.module';
 import { RevisionRequestModule } from './modules/revision-request/revision-request.module';
 import { RevisionRequestDocumentsModule } from './modules/revision-request-documents/revision-request-documents.module';
+import { RevisionResponseModule } from './modules/revision-response/revision-response.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { RevisionRequestDocumentsModule } from './modules/revision-request-docum
     FileModule,
     RevisionRequestModule,
     RevisionRequestDocumentsModule,
+    RevisionResponseModule,
   ],
   controllers: [],
   providers: [],

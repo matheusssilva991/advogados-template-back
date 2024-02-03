@@ -10,9 +10,10 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Process } from '../../process/entities/process.entity';
+import { RevisionResponse } from '../../revision-response/entities/revision-response.entity';
 import { Specialty } from '../../specialty/entities/specialty.entity';
 
-@Entity({ name: 'users', orderBy: { id: 'ASC' } })
+@Entity({ name: 'user', orderBy: { id: 'ASC' } })
 export class User {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id', unsigned: true })
   id: number;
@@ -57,6 +58,12 @@ export class User {
 
   @OneToMany(() => Process, (process) => process.user)
   processes: Process[];
+
+  @OneToMany(
+    () => RevisionResponse,
+    (revisionResponse) => revisionResponse.user,
+  )
+  revisionResponses: RevisionResponse[];
 
   @CreateDateColumn({
     type: 'timestamp',

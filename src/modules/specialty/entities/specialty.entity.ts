@@ -10,7 +10,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity({ name: 'specialties', orderBy: { id: 'ASC' } })
+@Entity({ name: 'specialty', orderBy: { id: 'ASC' } })
 export class Specialty {
   @PrimaryGeneratedColumn({ name: 'id', type: 'int', unsigned: true })
   id: number;
