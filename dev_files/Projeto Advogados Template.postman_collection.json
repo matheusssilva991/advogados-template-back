@@ -1,0 +1,1361 @@
+{
+	"info": {
+		"_postman_id": "c682847f-89ec-46d3-813e-09fcdbdc79a4",
+		"name": "Projeto Advogados Template",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21539221"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "USERS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "USER / ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{url}}/user/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "USER",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Matheus\",\n    \"email\": \"matheus1@email.com\",\n    \"nroOAB\": \"0123456-7\",\n    \"password\": \"senha12Mc@\",\n    \"phoneNumber\": \"73988323232\",\n    \"role\": \"lawyer\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/user",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "USER / ID",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Thalles Cerqueira Almeida Campos Santos Braga",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/user/7",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "USER / ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/user/6",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"6"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "LOGIN",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"linksyamato@gmail.com\",\n    \"password\": \"senha12Mc@\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RESET",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "password",
+									"value": "senha12",
+									"type": "text"
+								},
+								{
+									"key": "token",
+									"value": "epfjepjfepf.ceaife5f45e4f5efe",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/auth/reset",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"reset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FORGET",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "matheus@email.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/auth/forget",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"forget"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LOGOUT",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/auth/logout",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "CATEGORIES",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/categories?sort={\"name\": \"ASC\"}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"categories"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "{\"name\": \"ASC\"}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CATEGORY / ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/category/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"category",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CATEGORY",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Ambiental\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/category",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CATEGORY / ID",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Civil\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/category/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"category",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CATEGORY / ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/category/13",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"category",
+								"13"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Specialty",
+			"item": [
+				{
+					"name": "SPECIALTIES",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/specialties?limit=1&page=2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"specialties"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "1"
+								},
+								{
+									"key": "page",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SPECIALTY / ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/specialty/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"specialty",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SPECIALTY",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"affinity\": 2,\n    \"userId\": 2,\n    \"categoryId\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/specialty",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"specialty"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SPECIALTY / ID",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"affinity\": 9,\n    \"userId\": 1,\n    \"categoryId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/specialty/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"specialty",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SPECIALTY / ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{url}}/specialty/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"specialty",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Process",
+			"item": [
+				{
+					"name": "PROCESSES",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/processes",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"processes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PROCESS / ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/process/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"process",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PROCESSES-REPORT",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/processes-report?filters={\"removeLawyers\": \" \", \"orderBy\": \"lawyer\", \"status\": \"Em andamento\"}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"processes-report"
+							],
+							"query": [
+								{
+									"key": "filters",
+									"value": "{\"removeLawyers\": \" \", \"orderBy\": \"lawyer\", \"status\": \"Em andamento\"}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PROCESS",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"processKey\": \"51\",\n    \"name\": \"Naruto usocrack\",\n    \"matter\": \"51515151\",\n    \"description\": \"Naruto usocrack estava traficando drogas\",\n    \"distributionDate\": \"2023-07-20\",\n    \"deadline\": \"2023-07-27\",\n    \"isUrgent\": 0,\n    \"categoryId\": 1,\n    \"userId\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/process",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"process"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PROCESS / ID",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"processKey\": \"Kakashi\",\n    \"name\": \"Kakashi\",\n    \"materia\": \"Matéria 03\",\n    \"information\": \"Observação 03\",\n    \"distributionDate\": \"2023-11-24T00:00:00.000Z\",\n    \"conclusionDate\": \"2023-12-24T00:38:16.000Z\",\n    \"deadline\": \"2023-11-30T00:00:00.000Z\",\n    \"status\": \"Em andamento\",\n    \"isUrgent\": true,\n    \"seem\": \"teste\",\n    \"userId\": 2,\n    \"categoryId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/process/3",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"process",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PROCESSES",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ids\": [48]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/processes",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"processes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PROCESS / ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/process/9",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"process",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PROCESSES",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ids\": [8]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/processes",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"processes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ProcessDocuments",
+			"item": [
+				{
+					"name": "PROCESS-DOCUMENTS",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{url}}/process-documents",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"process-documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PROCESS-DOCUMENT / ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{url}}/process-document/11",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"process-document",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PROCESS-DOCUMENTS",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/home/matheus/Documentos/MeusCodes/med-storage/med-storage-front-v2/src/assets/images/logo-original.png"
+								},
+								{
+									"key": "processId",
+									"value": "10",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/process-document",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"process-document"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PROCESS-DOCUMENT / ID",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/home/matheus/Imagens/Capturas de tela/Captura de tela de 2024-01-31 19-30-08.png"
+								},
+								{
+									"key": "processId",
+									"value": "9",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/process-document/43",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"process-document",
+								"43"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PROCESS-DOCUMENT / ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{url}}/process-document/45",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"process-document",
+								"45"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "RevisionRequestDocuments",
+			"item": [
+				{
+					"name": "REVISION-REQUEST-DOCUMENTS",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{url}}/revision-request-documents",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"revision-request-documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "REVISION-REQUEST-DOCUMENT / ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{url}}/revision-request-document/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"revision-request-document",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "REVISION-REQUEST-DOCUMENTS",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/home/matheus/Documentos/MeusCodes/med-storage/med-storage-front-v2/src/assets/images/logo-original.png"
+								},
+								{
+									"key": "revisionRequestId",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/revision-request-document",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"revision-request-document"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "REVISION-REQUEST-DOCUMENT / ID",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/home/matheus/Imagens/Capturas de tela/Captura de tela de 2023-10-06 23-37-20.png"
+								},
+								{
+									"key": "revisionRequestId",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/revision-request-document/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"revision-request-document",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "REVISION-REQUEST-DOCUMENT / ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{url}}/revision-request-document/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"revision-request-document",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "RevisionResponseDocuments",
+			"item": [
+				{
+					"name": "REVISION-RESPONSE-DOCUMENTS",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{url}}/revision-response-documents",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"revision-response-documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "REVISION-RESPONSE-DOCUMENT / ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{url}}/revision-response-document/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"revision-response-document",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "REVISION-RESPONSE-DOCUMENTS",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": [
+										"/home/matheus/Downloads/arquivo_teste.txt",
+										"/home/matheus/Documentos/MeusCodes/med-storage/med-storage-front-v2/src/assets/images/logo-original.png"
+									]
+								},
+								{
+									"key": "revisionResponseId",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/revision-response-document",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"revision-response-document"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "REVISION-RESPONSE-DOCUMENT / ID",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/home/matheus/Documentos/MeusCodes/Codigos_Exercicios/Compiladores/ProjetoP1.pdf"
+								},
+								{
+									"key": "revisionResponseId",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/revision-response-document/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"revision-response-document",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "REVISION-RESPONSE-DOCUMENT / ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{url}}/revision-response-document/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"revision-response-document",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "RevisionRequest",
+			"item": [
+				{
+					"name": "REVISION-REQUESTS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/revision-requests",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"revision-requests"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "REVISION-REQUEST / ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/revision-request/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"revision-request",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "REVISION-REQUEST",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Caso Bob Esponja\",\n    \"description\": \"Eu fiz isso e isso...\",\n    \"processId\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/revision-request",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"revision-request"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "REVISION-REQUEST / ID",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"PROCESSO - TESTE\",\n    \"report\": \"Eu fiz isso e isso..., mudei, fiz isso também\",\n    \"revisionRequestDate\": \"2023-05-10\",\n    \"processId\": 48\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/revision-request/12",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"revision-request",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "REVISION-REQUEST / ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{url}}/revision-request/3",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"revision-request",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "RevisionResponse",
+			"item": [
+				{
+					"name": "REVISION-RESPONSES",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/revision-responses",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"revision-responses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "REVISION-RESPONSE / ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/revision-response/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"revision-response",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "REVISION-RESPONSE",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"CASO - TESTE\",\n    \"description\": \"Faça isso e isso..., bla bla bla\",\n    \"userId\": 1,\n    \"revisionRequestId\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/revision-response",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"revision-response"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "REVISION-RESPONSE / ID",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Caso Bob Esponja\",\n    \"orientation\": \"Faça isso e isso..., bla bla bla\",\n    \"revisionResponseDate\": \"2023-05-10\",\n    \"userId\": 1,\n    \"revisionRequestId\": 12\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/revision-response/9",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"revision-response",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "REVISION-RESPONSE / ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{url}}/revision-response/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"revision-response",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsIm5hbWUiOiJKb2FiZSBGZXJyZWlyYSIsImVtYWlsIjoibGlua3N5YW1hdG9AZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzA1OTE4NTc5LCJleHAiOjE3MDY3ODI1Nzl9.c-pMAS3Cy5gEhs6jtzqyBAlxiq4UCsAPtLZmOSa39qE",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://localhost:3333/api",
+			"type": "string"
+		}
+	]
+}
