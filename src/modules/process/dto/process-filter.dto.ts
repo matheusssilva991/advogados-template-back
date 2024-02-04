@@ -64,6 +64,10 @@ export class ProcessFilterDto {
   @Type(() => Number)
   isUrgent?: number;
 
+  @IsOptional({ message: 'Parecer é opcional.' })
+  @IsString({ message: 'Parecer deve ser uma string.' })
+  legalOpinion?: string;
+
   @IsOptional({ message: 'Usuário é opcional.' })
   @IsNumber({}, { message: 'Usuário deve ser um número.' })
   @IsPositive({ message: 'ID do usuário deve ser positivo.' })

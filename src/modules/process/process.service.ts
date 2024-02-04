@@ -23,6 +23,10 @@ import { CreateProcessDto } from './dto/create-process.dto';
 import { ProcessFilterDto } from './dto/process-filter.dto';
 import { UpdateProcessDto } from './dto/update-process.dto';
 import { Process } from './entities/process.entity';
+import { ReportFilterDto } from './dto/report-filter.dto';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const PDFDocument = require('pdfkit-table');
+import { join } from 'path';
 
 @Injectable()
 export class ProcessService {
@@ -99,19 +103,19 @@ export class ProcessService {
     const { beginningDeadline, endDeadline } = query;
     const relations = [];
 
-    const distributionDateInterval = this.getDateInterval(
+    const distributionDateInterval = this.getDateIntervalQuery(
       'distributionDate',
       beginningDistributionDate,
       endDistributionDate,
     );
 
-    const conclusionDateInterval = this.getDateInterval(
+    const conclusionDateInterval = this.getDateIntervalQuery(
       'conclusionDate',
       beginningConclusionDate,
       endConclusionDate,
     );
 
-    const deadlineInterval = this.getDateInterval(
+    const deadlineInterval = this.getDateIntervalQuery(
       'deadline',
       beginningDeadline,
       endDeadline,
@@ -139,6 +143,9 @@ export class ProcessService {
       }),
       ...(query.status && {
         status: ILike(`%${query.status}%`),
+      }),
+      ...(query.legalOpinion && {
+        legalOpinion: ILike(`%${query.legalOpinion}%`),
       }),
       ...((beginningDistributionDate || endDistributionDate) &&
         distributionDateInterval),
@@ -338,11 +345,210 @@ export class ProcessService {
     }
   }
 
-  async generatePDF(): Promise<Buffer> {
-    return;
+  async generatePDF(query: ReportFilterDto): Promise<Buffer> {
+    const { withUser } = query;
+    query.withUser = 'true';
+    query.withCategory = 'true';
+
+    // Pega os processos e transforma em um array de objetos
+    const processes = await this.findAllWithFilter(query as ProcessFilterDto);
+    const processes_list = processes.map((process) => {
+      return [
+        process.user?.name || ' ',
+        process.name || ' ',
+        process.processKey || ' ',
+        process.matter || ' ',
+        this.formatDate(process.conclusionDate) || ' ',
+        this.formatDate(process.deadline) || ' ',
+        process.legalOpinion || ' ',
+      ];
+    });
+
+    // Cria o header do PDF
+    const headers = [
+      'Advogado',
+      'Cliente',
+      'Processo',
+      'Matéria',
+      'Conclusão',
+      'Prazo',
+      'Parecer',
+    ];
+
+    // Remove o advogado da lista de processos
+    if (!withUser) {
+      processes_list.forEach((process) => {
+        process.shift();
+      });
+      headers.shift();
+    }
+
+    // Cria o buffer do PDF
+    const pdfBuffer: Buffer = await new Promise((resolve, reject) => {
+      const doc = new PDFDocument({
+        size: 'LETTER',
+        bufferPages: true,
+        autoFirstPage: false,
+      });
+
+      let pageNumber = 0;
+      doc.on('pageAdded', () => {
+        pageNumber++;
+
+        const bottom = doc.page.margins.bottom;
+
+        if (pageNumber > 1) {
+          doc.image(
+            join(process.cwd(), 'assets/scaleIcon.png'),
+            doc.page.width - 100,
+            5,
+            { fit: [45, 45], align: 'center' },
+          );
+          doc
+            .moveTo(50, 55)
+            .lineTo(doc.page.width - 50, 55)
+            .stroke();
+
+          doc.page.margins.bottom = 0;
+          doc.font('Helvetica').fontSize(14);
+          doc.text(
+            pageNumber,
+            1.0 * (doc.page.width - 100),
+            doc.page.height - 50,
+            {
+              width: 100,
+              align: 'center',
+              lineBreak: false,
+            },
+          );
+          doc.page.margins.bottom = bottom;
+        }
+      });
+
+      doc.addPage();
+      doc.image(
+        join(process.cwd(), 'assets/scaleIcon.png'),
+        doc.page.width / 2 - 100,
+        150,
+        { width: 200 },
+      );
+      doc.text('', 0, 400);
+      doc.font('Helvetica-Bold').fontSize(24);
+      doc.text('Relatório de Processos', {
+        width: doc.page.width,
+        align: 'center',
+      });
+      doc.moveDown(3);
+
+      query['distributionDate'] = this.getDateInterval(
+        query.beginningDistributionDate,
+        query.endDistributionDate,
+      );
+
+      query['conclusionDate'] = this.getDateInterval(
+        query.beginningConclusionDate,
+        query.endConclusionDate,
+      );
+
+      query['deadline'] = this.getDateInterval(
+        query.beginningDeadline,
+        query.endDeadline,
+      );
+
+      let yPosition = 550;
+      for (const key in query) {
+        if (Object.prototype.hasOwnProperty.call(query, key)) {
+          const element = query[key];
+          if (element) {
+            let text = '';
+            if (key == 'processKey') {
+              text = `Processo: ${element}`;
+            } else if (key == 'name') {
+              text = `Cliente: ${element}`;
+            } else if (key == 'matter') {
+              text = `Matéria: ${element}`;
+            } else if (key == 'description') {
+              text = `Descrição: ${element}`;
+            } else if (key == 'user') {
+              text = `Advogado: ${processes[0].user?.name}`;
+            } else if (key == 'category') {
+              text = `Área: ${processes[0].category?.name}`;
+            } else if (key == 'distributionDate') {
+              text = `Data de distruibuição: ${element}`;
+            } else if (key == 'conclusionDate') {
+              text = `Data de conclusão: ${element}`;
+            } else if (key == 'Período') {
+              text = `Prazo: ${element}`;
+            } else if (key == 'status') {
+              text = `Status: ${element}`;
+            } else if (key == 'legalOpinion') {
+              text = `Parecer: ${element}`;
+            } else {
+              continue;
+            }
+
+            doc.font('Helvetica').fontSize(12);
+            let textWidth = doc.widthOfString(text); // Calcula a largura do texto
+            if (textWidth > doc.page.width - 100) {
+              // Se a largura do texto for maior que a largura da página, reduza o tamanho da fonte
+              doc.fontSize(10);
+              textWidth = doc.widthOfString(text); // Recalcule a largura do texto
+            }
+
+            if (textWidth < 120) {
+              textWidth = 120;
+            } else if (
+              key === 'user' ||
+              key === 'description' ||
+              key === 'matter' ||
+              key === 'legalOpinion'
+            ) {
+              textWidth = 300;
+            }
+
+            const centerX = doc.page.width / 2 - textWidth / 2; // Calcula a posição X centralizada
+            doc.text(text, centerX, yPosition, {
+              // Use centerX para posicionar o texto centralizado
+              width: textWidth, // Defina a largura com base na largura do texto
+              align: 'center',
+              break: false,
+            });
+
+            yPosition += 25;
+          }
+        }
+      }
+
+      doc.addPage();
+      doc.text('', 50, 100);
+      doc.font('Helvetica').fontSize(24);
+      doc.text('Lista de processos', {
+        width: doc.page.width - 100,
+        align: 'center',
+      });
+      doc.moveDown();
+
+      const table = {
+        headers: headers,
+        rows: processes_list,
+      };
+
+      doc.table(table);
+
+      const buffer: any[] = [];
+      doc.on('data', buffer.push.bind(buffer));
+      doc.on('end', () => {
+        const pdfData = Buffer.concat(buffer);
+        resolve(pdfData);
+      });
+      doc.on('error', reject);
+      doc.end();
+    });
+
+    return pdfBuffer;
   }
 
-  getDateInterval(name: string, beginning: Date, end: Date): object {
+  getDateIntervalQuery(name: string, beginning: Date, end: Date): object {
     const queryObject: any = {};
 
     if (beginning > end) {
@@ -364,5 +570,34 @@ export class ProcessService {
     }
 
     return queryObject;
+  }
+
+  formatDate(date: any) {
+    try {
+      const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+      const returnDate = date.toLocaleDateString('pt-BR', options);
+
+      if (returnDate === 'Invalid Date') {
+        return ' ';
+      }
+
+      return returnDate;
+    } catch (error) {
+      return ' ';
+    }
+  }
+
+  getDateInterval(beginningDate: Date, endDate: Date): string {
+    if (beginningDate && endDate) {
+      beginningDate = this.formatDate(beginningDate);
+      endDate = this.formatDate(endDate);
+      return `${beginningDate}-${endDate}`;
+    } else if (beginningDate) {
+      beginningDate = this.formatDate(beginningDate);
+      return `${beginningDate}- `;
+    } else if (endDate) {
+      endDate = this.formatDate(endDate);
+      return ` -${endDate}`;
+    } else return undefined;
   }
 }

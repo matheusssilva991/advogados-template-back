@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -9,10 +10,13 @@ import {
   Patch,
   Post,
   Query,
+  Res,
 } from '@nestjs/common';
+import { Response } from 'express';
 import { UpdateResult } from 'typeorm';
 import { CreateProcessDto } from './dto/create-process.dto';
 import { ProcessFilterDto } from './dto/process-filter.dto';
+import { ReportFilterDto } from './dto/report-filter.dto';
 import { UpdateProcessDto } from './dto/update-process.dto';
 import { Process } from './entities/process.entity';
 import { ProcessService } from './process.service';
@@ -37,6 +41,26 @@ export class ProcessController {
   @Get('process/:id')
   async findOne(@Param('id', ParseIntPipe) id: number): Promise<Process> {
     return this.processService.findOne(+id);
+  }
+
+  @Get('processes-report')
+  async getReportPDF(
+    @Query() query: ReportFilterDto,
+    @Res() res: Response,
+  ): Promise<void> {
+    try {
+      const buffer = await this.processService.generatePDF(query);
+
+      res.set({
+        'Content-Type': 'application/pdf',
+        'Content-Length': buffer.length,
+        'Content-Disposition': 'attachment; filename=report.pdf',
+      });
+
+      res.end(buffer);
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 
   @Patch('process/:id')
