@@ -1,31 +1,33 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
-  ParseIntPipe,
-  Query,
+  Get,
+  Param,
   ParseArrayPipe,
+  ParseIntPipe,
+  Patch,
+  Post,
+  Query,
 } from '@nestjs/common';
-import { ProcessService } from './process.service';
+import { UpdateResult } from 'typeorm';
 import { CreateProcessDto } from './dto/create-process.dto';
-import { UpdateProcessDto } from './dto/update-process.dto';
 import { ProcessFilterDto } from './dto/process-filter.dto';
+import { UpdateProcessDto } from './dto/update-process.dto';
+import { Process } from './entities/process.entity';
+import { ProcessService } from './process.service';
 
 @Controller('api')
 export class ProcessController {
   constructor(private readonly processService: ProcessService) {}
 
   @Post('process')
-  create(@Body() createProcessDto: CreateProcessDto) {
+  async create(@Body() createProcessDto: CreateProcessDto): Promise<Process> {
     return this.processService.create(createProcessDto);
   }
 
   @Get('processes')
-  findAll(@Query() query: ProcessFilterDto) {
+  async findAll(@Query() query: ProcessFilterDto): Promise<Process[]> {
     if (Object.keys(query).length) {
       return this.processService.findAllWithFilter(query);
     }
@@ -33,30 +35,30 @@ export class ProcessController {
   }
 
   @Get('process/:id')
-  findOne(@Param('id', ParseIntPipe) id: number) {
+  async findOne(@Param('id', ParseIntPipe) id: number): Promise<Process> {
     return this.processService.findOne(+id);
   }
 
   @Patch('process/:id')
-  update(
+  async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateProcessDto: UpdateProcessDto,
-  ) {
+  ): Promise<UpdateResult> {
     return this.processService.update(+id, updateProcessDto);
   }
 
   @Patch('processes')
-  updateAll(@Body('ids', ParseArrayPipe) ids: number[]) {
+  async updateAll(@Body('ids', ParseArrayPipe) ids: number[]): Promise<object> {
     return this.processService.updateMany(ids);
   }
 
   @Delete('process/:id')
-  remove(@Param('id', ParseIntPipe) id: number) {
+  async remove(@Param('id', ParseIntPipe) id: number): Promise<Process> {
     return this.processService.remove(+id);
   }
 
   @Delete('processes')
-  removeAll(@Body('ids', ParseArrayPipe) ids: number[]) {
+  async removeAll(@Body('ids', ParseArrayPipe) ids: number[]): Promise<object> {
     return this.processService.removeMany(ids);
   }
 }

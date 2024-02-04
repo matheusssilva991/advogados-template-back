@@ -69,10 +69,10 @@ export class CategoryService {
 
   async remove(id: number): Promise<any> {
     // Tenta encontrar a categoria pelo id
-    await this.findOne(id);
+    const category = await this.findOne(id);
 
     // Remove a categoria
-    return await this.categoryRepository.delete(id);
+    return await this.categoryRepository.remove(category);
   }
 
   async categoryAlreadyExists(name: string): Promise<void> {

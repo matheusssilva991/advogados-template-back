@@ -4,14 +4,14 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { Role } from '../../common/enum/role.enum';
-import { Repository } from 'typeorm';
 import { CategoryService } from '../category/category.service';
 import { UserService } from '../user/user.service';
 import { CreateSpecialtyDto } from './dto/create-specialty.dto';
+import { SpecialtyFilterDto } from './dto/specialty-filter.dto';
 import { UpdateSpecialtyDto } from './dto/update-specialty.dto';
 import { Specialty } from './entities/specialty.entity';
-import { SpecialtyFilterDto } from './dto/specialty-filter.dto';
 
 @Injectable()
 export class SpecialtyService {
@@ -20,7 +20,7 @@ export class SpecialtyService {
     private readonly specialtyRepository: Repository<Specialty>,
     private readonly userService: UserService,
     private readonly categoryService: CategoryService,
-  ) { }
+  ) {}
 
   async create(createSpecialtyDto: CreateSpecialtyDto): Promise<Specialty> {
     // Verifica se o usuário existe
@@ -96,7 +96,7 @@ export class SpecialtyService {
   async update(
     id: number,
     updateSpecialtyDto: UpdateSpecialtyDto,
-  ): Promise<any> {
+  ): Promise<UpdateResult> {
     // Verifica se a especialidade existe
     const specialty = await this.findOne(id);
 
@@ -127,14 +127,14 @@ export class SpecialtyService {
     return await this.specialtyRepository.update(id, updateSpecialtyDto);
   }
 
-  async remove(id: number): Promise<any> {
+  async remove(id: number): Promise<Specialty> {
     // Verifica se a especialidade existe
-    await this.findOne(id);
+    const specialty = await this.findOne(id);
 
-    return await this.specialtyRepository.delete(id);
+    return await this.specialtyRepository.remove(specialty);
   }
 
-  async specialtyUserExists(userId: number, categoryId: number) {
+  async specialtyUserExists(userId: number, categoryId: number): Promise<void> {
     if (!userId || !categoryId) {
       throw new BadRequestException(
         'ID de usuário e/ou categoria inválido(s).',

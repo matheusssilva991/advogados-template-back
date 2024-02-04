@@ -4,12 +4,12 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ILike, Like, Repository } from 'typeorm';
+import * as bcrypt from 'bcrypt';
+import { ILike, Like, Repository, UpdateResult } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { User } from './entities/user.entity';
-import * as bcrypt from 'bcrypt';
 import { UserFilterDto } from './dto/user-filter.dto';
+import { User } from './entities/user.entity';
 
 @Injectable()
 export class UserService {
@@ -18,7 +18,7 @@ export class UserService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  async create(createUserDto: CreateUserDto) {
+  async create(createUserDto: CreateUserDto): Promise<User> {
     // Verifica se o email já existe
     await this.emailAlreadyExists(createUserDto.email);
 
@@ -85,7 +85,10 @@ export class UserService {
     }
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto) {
+  async update(
+    id: number,
+    updateUserDto: UpdateUserDto,
+  ): Promise<UpdateResult> {
     // Tenta encontrar o usuário pelo id
     const user = await this.findOne(id);
 
@@ -98,12 +101,12 @@ export class UserService {
     return await this.userRepository.update(id, updateUserDto);
   }
 
-  async remove(id: number) {
+  async remove(id: number): Promise<User> {
     // Tenta encontrar o usuário pelo id
     const user = await this.findOne(id);
 
     // Remove o usuário
-    return await this.userRepository.delete(user.id);
+    return await this.userRepository.remove(user);
   }
 
   async emailAlreadyExists(email: string): Promise<void> {

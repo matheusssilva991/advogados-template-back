@@ -9,6 +9,7 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
+import { UpdateResult } from 'typeorm';
 import { CreateSpecialtyDto } from './dto/create-specialty.dto';
 import { SpecialtyFilterDto } from './dto/specialty-filter.dto';
 import { UpdateSpecialtyDto } from './dto/update-specialty.dto';
@@ -43,12 +44,12 @@ export class SpecialtyController {
   async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateSpecialtyDto: UpdateSpecialtyDto,
-  ): Promise<any> {
+  ): Promise<UpdateResult> {
     return this.specialtyService.update(+id, updateSpecialtyDto);
   }
 
   @Delete('specialty/:id')
-  async remove(@Param('id', ParseIntPipe) id: number): Promise<any> {
+  async remove(@Param('id', ParseIntPipe) id: number): Promise<Specialty> {
     return this.specialtyService.remove(+id);
   }
 }

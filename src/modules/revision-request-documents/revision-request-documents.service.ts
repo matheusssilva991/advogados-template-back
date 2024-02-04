@@ -5,14 +5,14 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { join } from 'path';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import { FileService } from '../file/file.service';
 import { RevisionRequestService } from '../revision-request/revision-request.service';
 import { CreateRevisionRequestDocumentDto } from './dto/create-revision-request-document.dto';
+import { RevisionRequestDocFilterDto } from './dto/revision-request-doc-filter.dto';
 import { UpdateRevisionRequestDocumentDto } from './dto/update-revision-request-document.dto';
 import { RevisionRequestDocument } from './entities/revision-request-document.entity';
-import { RevisionRequestDocFilterDto } from './dto/revision-request-doc-filter.dto';
 
 @Injectable()
 export class RevisionRequestDocumentsService {
@@ -25,7 +25,7 @@ export class RevisionRequestDocumentsService {
 
   async create(
     createRevisionRequestDocumentDto: CreateRevisionRequestDocumentDto,
-  ) {
+  ): Promise<RevisionRequestDocument> {
     // Verifica se a requisição de revisão existe
     await this.revisionRequestService.findOne(
       createRevisionRequestDocumentDto.revisionRequestId,
@@ -69,11 +69,13 @@ export class RevisionRequestDocumentsService {
     }
   }
 
-  async findAll() {
+  async findAll(): Promise<RevisionRequestDocument[]> {
     return await this.revisionRequestDocumentRepository.find();
   }
 
-  async findAllWithFilter(query: RevisionRequestDocFilterDto) {
+  async findAllWithFilter(
+    query: RevisionRequestDocFilterDto,
+  ): Promise<RevisionRequestDocument[]> {
     const { revisionRequest, withRevisionRequest, limit, page, sort } = query;
     const where = revisionRequest ? { revisionRequestId: revisionRequest } : {};
 
@@ -94,7 +96,7 @@ export class RevisionRequestDocumentsService {
     });
   }
 
-  async findOne(id: number) {
+  async findOne(id: number): Promise<RevisionRequestDocument> {
     try {
       return await this.revisionRequestDocumentRepository.findOneByOrFail({
         id,
@@ -109,7 +111,7 @@ export class RevisionRequestDocumentsService {
   async update(
     id: number,
     updateRevisionRequestDocumentDto: UpdateRevisionRequestDocumentDto,
-  ) {
+  ): Promise<UpdateResult> {
     // Verifica se a requisição de revisão existe
     const revisionRequestDocument = await this.findOne(id);
 
@@ -148,14 +150,14 @@ export class RevisionRequestDocumentsService {
     );
   }
 
-  async remove(id: number) {
+  async remove(id: number): Promise<RevisionRequestDocument> {
     const revisionRequestDocument = await this.findOne(id);
     return await this.revisionRequestDocumentRepository.remove(
       revisionRequestDocument,
     );
   }
 
-  makePath(fileName: string) {
+  makePath(fileName: string): string {
     return join(
       __dirname,
       '..',

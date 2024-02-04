@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { join } from 'path';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import { FileService } from '../file/file.service';
 import { RevisionResponseService } from '../revision-response/revision-response.service';
@@ -25,7 +25,7 @@ export class RevisionResponseDocumentsService {
 
   async create(
     createRevisionResponseDocumentDto: CreateRevisionResponseDocumentDto,
-  ) {
+  ): Promise<RevisionResponseDocument> {
     // Verifica se a resposta de revisão existe
     await this.revisionResponseService.findOne(
       createRevisionResponseDocumentDto.revisionResponseId,
@@ -69,11 +69,13 @@ export class RevisionResponseDocumentsService {
     }
   }
 
-  async findAll() {
+  async findAll(): Promise<RevisionResponseDocument[]> {
     return await this.revisionResponseDocumentRepository.find();
   }
 
-  async findAllWithFilter(query: RevisionResponseDocFilterDto) {
+  async findAllWithFilter(
+    query: RevisionResponseDocFilterDto,
+  ): Promise<RevisionResponseDocument[]> {
     const { revisionResponse, withRevisionResponse, limit, page, sort } = query;
     const where = revisionResponse
       ? { revisionResponseId: revisionResponse }
@@ -96,7 +98,7 @@ export class RevisionResponseDocumentsService {
     });
   }
 
-  async findOne(id: number) {
+  async findOne(id: number): Promise<RevisionResponseDocument> {
     try {
       return await this.revisionResponseDocumentRepository.findOneByOrFail({
         id,
@@ -111,7 +113,7 @@ export class RevisionResponseDocumentsService {
   async update(
     id: number,
     updateRevisionResponseDocumentDto: UpdateRevisionResponseDocumentDto,
-  ) {
+  ): Promise<UpdateResult> {
     // Verifica se a resposta de revisão existe
     const revisionResponseDocument = await this.findOne(id);
 
@@ -149,14 +151,14 @@ export class RevisionResponseDocumentsService {
     );
   }
 
-  async remove(id: number) {
+  async remove(id: number): Promise<RevisionResponseDocument> {
     const revisionResponseDocument = await this.findOne(id);
     return await this.revisionResponseDocumentRepository.remove(
       revisionResponseDocument,
     );
   }
 
-  makePath(fileName: string) {
+  makePath(fileName: string): string {
     return join(
       __dirname,
       '..',

@@ -4,7 +4,15 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Between, ILike, LessThan, MoreThan, Not, Repository } from 'typeorm';
+import {
+  Between,
+  ILike,
+  LessThan,
+  MoreThan,
+  Not,
+  Repository,
+  UpdateResult,
+} from 'typeorm';
 import { Status } from '../../common/enum/status.enum';
 import { CategoryService } from '../category/category.service';
 import { SpecialtyFilterDto } from '../specialty/dto/specialty-filter.dto';
@@ -26,7 +34,7 @@ export class ProcessService {
     private readonly specialtyService: SpecialtyService,
   ) {}
 
-  async create(createProcessDto: CreateProcessDto) {
+  async create(createProcessDto: CreateProcessDto): Promise<Process> {
     // Verifica se a chave de processo já existe
     await this.processKeyAlreadyExists(createProcessDto.processKey);
 
@@ -81,11 +89,11 @@ export class ProcessService {
     return await this.processRepository.save(process);
   }
 
-  async findAll() {
+  async findAll(): Promise<Process[]> {
     return await this.processRepository.find();
   }
 
-  async findAllWithFilter(query: ProcessFilterDto) {
+  async findAllWithFilter(query: ProcessFilterDto): Promise<Process[]> {
     const { beginningDistributionDate, endDistributionDate } = query;
     const { beginningConclusionDate, endConclusionDate } = query;
     const { beginningDeadline, endDeadline } = query;
@@ -158,7 +166,7 @@ export class ProcessService {
     });
   }
 
-  async findOne(id: number) {
+  async findOne(id: number): Promise<Process> {
     // Tenta encontrar a categoria pelo id
     try {
       return await this.processRepository.findOneOrFail({ where: { id } });
@@ -167,7 +175,10 @@ export class ProcessService {
     }
   }
 
-  async update(id: number, updateProcessDto: UpdateProcessDto) {
+  async update(
+    id: number,
+    updateProcessDto: UpdateProcessDto,
+  ): Promise<UpdateResult> {
     const process = await this.findOne(id);
 
     // Verifica se a chave de processo já existe
@@ -238,7 +249,7 @@ export class ProcessService {
     }
   }
 
-  async updateMany(ids: number[]) {
+  async updateMany(ids: number[]): Promise<object> {
     let count = 0;
 
     for (const id of ids) {
@@ -254,12 +265,12 @@ export class ProcessService {
     return { updated: count };
   }
 
-  async remove(id: number) {
+  async remove(id: number): Promise<Process> {
     const process = await this.findOne(id);
     return await this.processRepository.remove(process);
   }
 
-  async removeMany(ids: number[]) {
+  async removeMany(ids: number[]): Promise<object> {
     // Verifica se os processos existem
     const count = ids.length;
     for (const id of ids) {
@@ -268,7 +279,7 @@ export class ProcessService {
     return { removed: count };
   }
 
-  async processKeyAlreadyExists(processKey: string) {
+  async processKeyAlreadyExists(processKey: string): Promise<void> {
     if (!processKey) {
       throw new BadRequestException('Chave de processo não informada.');
     }
@@ -282,7 +293,7 @@ export class ProcessService {
     }
   }
 
-  async getUserIdLessProcesses(ids: number[]) {
+  async getUserIdLessProcesses(ids: number[]): Promise<number> {
     let numProcesses = Infinity;
     let userId = -1;
 
@@ -303,7 +314,9 @@ export class ProcessService {
     return userId;
   }
 
-  async getUserIdWithHighestSpecialty(specialties: Specialty[]) {
+  async getUserIdWithHighestSpecialty(
+    specialties: Specialty[],
+  ): Promise<number> {
     const highestSpecialty = specialties.reduce((prev, current) =>
       prev.affinity > current.affinity ? prev : current,
     );
@@ -325,7 +338,11 @@ export class ProcessService {
     }
   }
 
-  getDateInterval(name: string, beginning: Date, end: Date) {
+  async generatePDF(): Promise<Buffer> {
+    return;
+  }
+
+  getDateInterval(name: string, beginning: Date, end: Date): object {
     const queryObject: any = {};
 
     if (beginning > end) {

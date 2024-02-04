@@ -9,6 +9,7 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
+import { UpdateResult } from 'typeorm';
 import { CategoryService } from './category.service';
 import { CategoryFilterDto } from './dto/category-filter.dto';
 import { CreateCategoryDto } from './dto/create-category.dto';
@@ -43,12 +44,12 @@ export class CategoryController {
   async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateCategoryDto: UpdateCategoryDto,
-  ): Promise<any> {
+  ): Promise<UpdateResult> {
     return this.categoryService.update(+id, updateCategoryDto);
   }
 
   @Delete('category/:id')
-  async remove(@Param('id', ParseIntPipe) id: number): Promise<any> {
+  async remove(@Param('id', ParseIntPipe) id: number): Promise<Category> {
     return this.categoryService.remove(+id);
   }
 }

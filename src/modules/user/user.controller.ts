@@ -9,6 +9,7 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
+import { UpdateResult } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserFilterDto } from './dto/user-filter.dto';
@@ -41,12 +42,12 @@ export class UserController {
   async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateUserDto: UpdateUserDto,
-  ): Promise<any> {
+  ): Promise<UpdateResult> {
     return await this.userService.update(+id, updateUserDto);
   }
 
   @Delete('user/:id')
-  async remove(@Param('id', ParseIntPipe) id: number): Promise<any> {
+  async remove(@Param('id', ParseIntPipe) id: number): Promise<User> {
     return await this.userService.remove(+id);
   }
 }

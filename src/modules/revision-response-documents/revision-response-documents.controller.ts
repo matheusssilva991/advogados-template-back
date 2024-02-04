@@ -12,9 +12,11 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { UpdateResult } from 'typeorm';
 import { CreateRevisionResponseDocumentDto } from './dto/create-revision-response-document.dto';
 import { RevisionResponseDocFilterDto } from './dto/revision-response-doc-filter.dto';
 import { UpdateRevisionResponseDocumentDto } from './dto/update-revision-response-document.dto';
+import { RevisionResponseDocument } from './entities/revision-response-document.entity';
 import { RevisionResponseDocumentsService } from './revision-response-documents.service';
 
 @Controller('api')
@@ -29,7 +31,7 @@ export class RevisionResponseDocumentsController {
     @Body()
     createRevisionResponseDocumentDto: CreateRevisionResponseDocumentDto,
     @UploadedFile() file: Express.Multer.File,
-  ) {
+  ): Promise<RevisionResponseDocument> {
     createRevisionResponseDocumentDto.file = file;
     return this.revisionResponseDocumentsService.create(
       createRevisionResponseDocumentDto,
@@ -37,14 +39,18 @@ export class RevisionResponseDocumentsController {
   }
 
   @Get('revision-response-documents')
-  async findAll(@Query() query: RevisionResponseDocFilterDto) {
+  async findAll(
+    @Query() query: RevisionResponseDocFilterDto,
+  ): Promise<RevisionResponseDocument[]> {
     if (Object.keys(query).length)
       return this.revisionResponseDocumentsService.findAllWithFilter(query);
     return this.revisionResponseDocumentsService.findAll();
   }
 
   @Get('revision-response-document/:id')
-  async findOne(@Param('id', ParseIntPipe) id: number) {
+  async findOne(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<RevisionResponseDocument> {
     return this.revisionResponseDocumentsService.findOne(+id);
   }
 
@@ -54,7 +60,7 @@ export class RevisionResponseDocumentsController {
     @Body()
     updateRevisionResponseDocumentDto: UpdateRevisionResponseDocumentDto,
     @UploadedFile() file: Express.Multer.File,
-  ) {
+  ): Promise<UpdateResult> {
     updateRevisionResponseDocumentDto.file = file;
     return this.revisionResponseDocumentsService.update(
       +id,
@@ -63,7 +69,9 @@ export class RevisionResponseDocumentsController {
   }
 
   @Delete('revision-response-document/:id')
-  async remove(@Param('id', ParseIntPipe) id: number) {
+  async remove(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<RevisionResponseDocument> {
     return this.revisionResponseDocumentsService.remove(+id);
   }
 }

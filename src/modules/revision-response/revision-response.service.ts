@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ILike, Repository } from 'typeorm';
+import { ILike, Repository, UpdateResult } from 'typeorm';
 import { RevisionRequestService } from '../revision-request/revision-request.service';
 import { UserService } from '../user/user.service';
 import { CreateRevisionResponseDto } from './dto/create-revision-response.dto';
@@ -17,7 +17,9 @@ export class RevisionResponseService {
     private readonly userService: UserService,
   ) {}
 
-  async create(createRevisionResponseDto: CreateRevisionResponseDto) {
+  async create(
+    createRevisionResponseDto: CreateRevisionResponseDto,
+  ): Promise<RevisionResponse> {
     // Verifica se a requisição de revisão existe
     await this.revisionRequestService.findOne(
       createRevisionResponseDto.revisionRequestId,
@@ -33,11 +35,13 @@ export class RevisionResponseService {
     return await this.revisionResponseRepository.save(revisionResponse);
   }
 
-  async findAll() {
+  async findAll(): Promise<RevisionResponse[]> {
     return await this.revisionResponseRepository.find();
   }
 
-  async findAllWithFilter(query: RevisionResponseFilterDto) {
+  async findAllWithFilter(
+    query: RevisionResponseFilterDto,
+  ): Promise<RevisionResponse[]> {
     const relations = [];
 
     // Trazer dados do processo
@@ -75,7 +79,7 @@ export class RevisionResponseService {
     });
   }
 
-  async findOne(id: number) {
+  async findOne(id: number): Promise<RevisionResponse> {
     try {
       return await this.revisionResponseRepository.findOneByOrFail({ id });
     } catch (error) {
@@ -86,7 +90,7 @@ export class RevisionResponseService {
   async update(
     id: number,
     updateRevisionResponseDto: UpdateRevisionResponseDto,
-  ) {
+  ): Promise<UpdateResult> {
     // Verifica se a resposta de revisão existe
     await this.findOne(id);
 
@@ -108,7 +112,7 @@ export class RevisionResponseService {
     );
   }
 
-  async remove(id: number) {
+  async remove(id: number): Promise<RevisionResponse> {
     const revisionResponse = await this.findOne(id);
     return await this.revisionResponseRepository.remove(revisionResponse);
   }

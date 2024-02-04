@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ILike, Repository } from 'typeorm';
+import { ILike, Repository, UpdateResult } from 'typeorm';
 import { ProcessService } from '../process/process.service';
 import { CreateRevisionRequestDto } from './dto/create-revision-request.dto';
 import { RevisionRequestFilterDto } from './dto/revision-request-filter.dto';
@@ -15,7 +15,9 @@ export class RevisionRequestService {
     private readonly processService: ProcessService,
   ) {}
 
-  async create(createRevisionRequestDto: CreateRevisionRequestDto) {
+  async create(
+    createRevisionRequestDto: CreateRevisionRequestDto,
+  ): Promise<RevisionRequest> {
     // Verifica se o processo existe
     await this.processService.findOne(createRevisionRequestDto.processId);
 
@@ -25,11 +27,13 @@ export class RevisionRequestService {
     return await this.revisionRequestRepository.save(revisionRequest);
   }
 
-  async findAll() {
+  async findAll(): Promise<RevisionRequest[]> {
     return await this.revisionRequestRepository.find();
   }
 
-  async findAllWithFilter(query: RevisionRequestFilterDto) {
+  async findAllWithFilter(
+    query: RevisionRequestFilterDto,
+  ): Promise<RevisionRequest[]> {
     const relations = [];
 
     // Trazer dados do processo
@@ -62,7 +66,7 @@ export class RevisionRequestService {
     });
   }
 
-  async findOne(id: number) {
+  async findOne(id: number): Promise<RevisionRequest> {
     try {
       return await this.revisionRequestRepository.findOneByOrFail({ id });
     } catch (error) {
@@ -72,7 +76,10 @@ export class RevisionRequestService {
     }
   }
 
-  async update(id: number, updateRevisionRequestDto: UpdateRevisionRequestDto) {
+  async update(
+    id: number,
+    updateRevisionRequestDto: UpdateRevisionRequestDto,
+  ): Promise<UpdateResult> {
     if (updateRevisionRequestDto.processId) {
       await this.processService.findOne(updateRevisionRequestDto.processId);
     }
@@ -83,7 +90,7 @@ export class RevisionRequestService {
     );
   }
 
-  async remove(id: number) {
+  async remove(id: number): Promise<RevisionRequest> {
     const revisionRequest = await this.findOne(id);
     return await this.revisionRequestRepository.remove(revisionRequest);
   }

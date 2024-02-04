@@ -9,10 +9,12 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
+import { UpdateResult } from 'typeorm';
 import { CreateRevisionRequestDto } from './dto/create-revision-request.dto';
-import { UpdateRevisionRequestDto } from './dto/update-revision-request.dto';
-import { RevisionRequestService } from './revision-request.service';
 import { RevisionRequestFilterDto } from './dto/revision-request-filter.dto';
+import { UpdateRevisionRequestDto } from './dto/update-revision-request.dto';
+import { RevisionRequest } from './entities/revision-request.entity';
+import { RevisionRequestService } from './revision-request.service';
 
 @Controller('api')
 export class RevisionRequestController {
@@ -21,12 +23,16 @@ export class RevisionRequestController {
   ) {}
 
   @Post('revision-request')
-  async create(@Body() createRevisionRequestDto: CreateRevisionRequestDto) {
+  async create(
+    @Body() createRevisionRequestDto: CreateRevisionRequestDto,
+  ): Promise<RevisionRequest> {
     return this.revisionRequestService.create(createRevisionRequestDto);
   }
 
   @Get('revision-requests')
-  async findAll(@Query() query: RevisionRequestFilterDto) {
+  async findAll(
+    @Query() query: RevisionRequestFilterDto,
+  ): Promise<RevisionRequest[]> {
     if (Object.keys(query).length) {
       return this.revisionRequestService.findAllWithFilter(query);
     }
@@ -34,7 +40,9 @@ export class RevisionRequestController {
   }
 
   @Get('revision-request/:id')
-  async findOne(@Param('id', ParseIntPipe) id: number) {
+  async findOne(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<RevisionRequest> {
     return this.revisionRequestService.findOne(+id);
   }
 
@@ -42,12 +50,14 @@ export class RevisionRequestController {
   async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateRevisionRequestDto: UpdateRevisionRequestDto,
-  ) {
+  ): Promise<UpdateResult> {
     return this.revisionRequestService.update(+id, updateRevisionRequestDto);
   }
 
   @Delete('revision-request/:id')
-  async remove(@Param('id', ParseIntPipe) id: number) {
+  async remove(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<RevisionRequest> {
     return this.revisionRequestService.remove(+id);
   }
 }

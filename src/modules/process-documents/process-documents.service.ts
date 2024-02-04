@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { join } from 'path';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import { ProcessService } from '../process/process.service';
 import { FileService } from './../file/file.service';
@@ -26,7 +26,9 @@ export class ProcessDocumentsService {
     private fileService: FileService,
   ) {}
 
-  async create(createProcessDocumentDto: CreateProcessDocumentDto) {
+  async create(
+    createProcessDocumentDto: CreateProcessDocumentDto,
+  ): Promise<ProcessDocument> {
     // verifica se o processo existe
     await this.processService.findOne(createProcessDocumentDto.processId);
 
@@ -63,11 +65,13 @@ export class ProcessDocumentsService {
     }
   }
 
-  async findAll() {
+  async findAll(): Promise<ProcessDocument[]> {
     return await this.processDocumentRepository.find();
   }
 
-  async findAllWithFilter(query: ProcessDocumentFilterDto) {
+  async findAllWithFilter(
+    query: ProcessDocumentFilterDto,
+  ): Promise<ProcessDocument[]> {
     const { process, withProcess, limit, page, sort } = query;
     const where = process ? { processId: process } : {};
 
@@ -88,7 +92,7 @@ export class ProcessDocumentsService {
     });
   }
 
-  async findOne(id: number) {
+  async findOne(id: number): Promise<ProcessDocument> {
     try {
       return await this.processDocumentRepository.findOneByOrFail({ id });
     } catch (error) {
@@ -98,7 +102,10 @@ export class ProcessDocumentsService {
     }
   }
 
-  async update(id: number, updateProcessDocumentDto: UpdateProcessDocumentDto) {
+  async update(
+    id: number,
+    updateProcessDocumentDto: UpdateProcessDocumentDto,
+  ): Promise<UpdateResult> {
     // verifica se o documento de processo existe
     const processDocument = await this.findOne(id);
     // verifica se o processo existe
@@ -134,12 +141,12 @@ export class ProcessDocumentsService {
     );
   }
 
-  async remove(id: number) {
+  async remove(id: number): Promise<ProcessDocument> {
     const processDocument = await this.findOne(id);
     return await this.processDocumentRepository.remove(processDocument);
   }
 
-  makePath(fileName: string) {
+  makePath(fileName: string): string {
     return join(
       __dirname,
       '..',

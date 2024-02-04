@@ -4,7 +4,7 @@
 
 <!---Esses são exemplos. Veja https://shields.io para outras pessoas ou para personalizar este conjunto de escudos. Você pode querer incluir dependências, status do projeto e informações de licença aqui--->
 
-<img src="./assets/logo.png" alt="Capa" width="40%">
+<img src="./assets/scaleIcon.svg" alt="Capa" width="35%">
 
 > Sistema de gestão de processos de advogados
 
