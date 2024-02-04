@@ -625,6 +625,46 @@ Para acessar as rotas do projeto:
 
 </details>
 
+<summary><code>GET</code> <code><b>/api/processes-report</b></code> <code>(Retorna o PDF do relatório)</code></summary>
+
+#### • Auth (Nível de Acesso - Lawyers+)
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `accessToken` | required | string    | Token de autorização do usuário |
+
+#### • Query
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `processKey`  | opcional | string    | Chave do processo |
+> | `name`  | opcional | string    | Nome do cliente |
+> | `matter`  | opcional | string    | Matéria do processo |
+> | `description`  | opcional | string    | Descrição do processo |
+> | `beginningDistributionDate`  | opcional | Date  | Data de distribuição inicial do processo |
+> | `endDistributionDate`  | opcional | Date  | Data de distribuição final do processo |
+> | `beginningConclusionDate`  | opcional | Date  | Data de conclusão inicial do processo |
+> | `endConclusionDate`  | opcional | Date  | Data de conclusão final do processo |
+> | `beginningDeadline`  | opcional | Date  | Data de prazo inicial do processo |
+> | `endDeadline`  | opcional | Date  | Data de prazo final do processo |
+> | `status`  | opcional | string    | Status do processo |
+> | `isUrgent`  | opcional | number    | Se o processo é urgente ou não |
+> | `user`  | opcional | number    | ID do usuário |
+> | `category` | opcional | number   | ID da categoria |
+> | `withUser` | opcional | bolean   | Trazer ou não dados de usuário |
+> | `limit` | opcional | number    | Limite de registros por página |
+> | `page` | opcional | number    | Página |
+> | `sort` | opcional | object   | Chaves de ordenação |
+
+#### • Respostas
+
+> | http code | content-type       | response                                 |
+> | --------- | ------------------ | ---------------------------------------- |
+> | `200`     | `application/json` | `{"code": "200", "report": Buffer}`      |
+> | `401`     | `application/json` | `{"code":"401", "msg":"Unauthorized"}` |
+
+</details>
+
 <details>
 
 <summary><code>POST</code> <code><b>/api/process</b></code> <code>(Cria um processo)</code></summary>
