@@ -625,6 +625,8 @@ Para acessar as rotas do projeto:
 
 </details>
 
+<details>
+
 <summary><code>GET</code> <code><b>/api/processes-report</b></code> <code>(Retorna o PDF do relatório)</code></summary>
 
 #### • Auth (Nível de Acesso - Lawyers+)
