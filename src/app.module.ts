@@ -19,7 +19,9 @@ import { UserModule } from './modules/user/user.module';
       envFilePath: process.env.ENV === 'test' ? '.env.test' : '.env',
       isGlobal: true,
     }),
-    TypeOrmModule.forRoot(dataSourceOptions),
+    TypeOrmModule.forRootAsync({
+      useFactory: () => dataSourceOptions,
+    }),
     UserModule,
     CategoryModule,
     SpecialtyModule,
