@@ -58,7 +58,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Matheus\",\n    \"email\": \"matheus1@email.com\",\n    \"nroOAB\": \"0123456-7\",\n    \"password\": \"senha12Mc@\",\n    \"phoneNumber\": \"73988323232\",\n    \"role\": \"lawyer\"\n}",
+							"raw": "{\n    \"name\": \"Matheus\",\n    \"email\": \"matheus3@email.com\",\n    \"nroOAB\": \"0123456-7\",\n    \"password\": \"senha12Mc@\",\n    \"phoneNumber\": \"73988323232\",\n    \"role\": \"lawyer\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -84,13 +84,7 @@
 						"header": [],
 						"body": {
 							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "name",
-									"value": "Thalles Cerqueira Almeida Campos Santos Braga",
-									"type": "text"
-								}
-							]
+							"urlencoded": []
 						},
 						"url": {
 							"raw": "{{url}}/user/7",
@@ -111,13 +105,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/user/6",
+							"raw": "{{url}}/user/4",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"user",
-								"6"
+								"4"
 							]
 						}
 					},
@@ -135,7 +129,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"linksyamato@gmail.com\",\n    \"password\": \"senha12Mc@\"\n}",
+							"raw": "{\n    \"email\": \"matheus@email.com\",\n    \"password\": \"senha12Mc@\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -143,74 +137,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/auth/login",
+							"raw": "{{url}}/login",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
-								"auth",
 								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "RESET",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "password",
-									"value": "senha12",
-									"type": "text"
-								},
-								{
-									"key": "token",
-									"value": "epfjepjfepf.ceaife5f45e4f5efe",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{url}}/auth/reset",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"auth",
-								"reset"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "FORGET",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "email",
-									"value": "matheus@email.com",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{url}}/auth/forget",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"auth",
-								"forget"
 							]
 						}
 					},
@@ -222,12 +154,11 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/auth/logout",
+							"raw": "{{url}}/logout",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
-								"auth",
 								"logout"
 							]
 						}
@@ -522,18 +453,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/processes-report?filters={\"removeLawyers\": \" \", \"orderBy\": \"lawyer\", \"status\": \"Em andamento\"}",
+							"raw": "{{url}}/processes-report",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"processes-report"
-							],
-							"query": [
-								{
-									"key": "filters",
-									"value": "{\"removeLawyers\": \" \", \"orderBy\": \"lawyer\", \"status\": \"Em andamento\"}"
-								}
 							]
 						}
 					},
@@ -1326,7 +1251,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsIm5hbWUiOiJKb2FiZSBGZXJyZWlyYSIsImVtYWlsIjoibGlua3N5YW1hdG9AZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzA1OTE4NTc5LCJleHAiOjE3MDY3ODI1Nzl9.c-pMAS3Cy5gEhs6jtzqyBAlxiq4UCsAPtLZmOSa39qE",
+				"value": "",
 				"type": "string"
 			}
 		]
