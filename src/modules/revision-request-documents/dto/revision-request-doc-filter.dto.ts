@@ -13,6 +13,12 @@ export class RevisionRequestDocFilterDto {
   @Type(() => Number)
   revisionRequest: number;
 
+  @IsOptional({ message: 'Processo é opcional.' })
+  @IsNumber({}, { message: 'Processo deve ser um número.' })
+  @IsPositive({ message: 'ID do processo deve ser positivo.' })
+  @Type(() => Number)
+  process: number;
+
   @IsOptional({ message: 'Trazer dados da requisição de revisão é opcional.' })
   @IsBooleanString({
     message: 'Trazer dados da requisição de revisão deve ser um booleano.',

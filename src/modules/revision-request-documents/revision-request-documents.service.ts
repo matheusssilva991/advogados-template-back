@@ -76,8 +76,14 @@ export class RevisionRequestDocumentsService {
   async findAllWithFilter(
     query: RevisionRequestDocFilterDto,
   ): Promise<RevisionRequestDocument[]> {
-    const { revisionRequest, withRevisionRequest, limit, page, sort } = query;
-    const where = revisionRequest ? { revisionRequestId: revisionRequest } : {};
+    const { withRevisionRequest, limit, page, sort } = query;
+
+    const filter = {
+      ...(query.process && { revisionRequest: { processId: query.process } }),
+      ...(query.revisionRequest && {
+        revisionRequestId: query.revisionRequest,
+      }),
+    };
 
     // Ordenação
     let sortObject: any;
@@ -88,7 +94,7 @@ export class RevisionRequestDocumentsService {
     }
 
     return await this.revisionRequestDocumentRepository.find({
-      where,
+      where: filter,
       relations: withRevisionRequest === 'true' ? ['revision_request'] : [],
       order: sortObject,
       take: limit,

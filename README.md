@@ -1144,6 +1144,7 @@ Para acessar as rotas do projeto:
 > | name    | type     | data type | description                     |
 > | ------- | -------- | --------- | ------------------------------- |
 > | `revisionRequest` | opcional | number   | ID da requisição de revisão |
+> | `process` | opcional | number   | ID do processo |
 > | `withRevisionRequest` | opcional | bolean   | Trazer ou não dados da requisição de revisão |
 > | `limit` | opcional | number    | Limite de registros por página |
 > | `page` | opcional | number    | Página |
