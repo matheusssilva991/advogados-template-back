@@ -4,7 +4,6 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import * as bcrypt from 'bcrypt';
 import { ILike, Like, Repository, UpdateResult } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -67,18 +66,12 @@ export class UserService {
     }
   }
 
-  async findOneByEmail(
-    email: string,
-    withPassword: boolean = false,
-  ): Promise<User> {
-    const selectFields: any = ['id', 'name', 'email', 'role'];
-    if (withPassword) selectFields.push('password');
-
+  async findOneByEmail(email: string): Promise<User> {
     // Tenta encontrar o usuário pelo email
     try {
       return await this.userRepository.findOneOrFail({
         where: { email },
-        select: [...selectFields],
+        select: { password: true },
       });
     } catch (error) {
       throw new NotFoundException('Email não encontrado.');
@@ -113,25 +106,5 @@ export class UserService {
     if (await this.userRepository.findOne({ where: { email: Like(email) } })) {
       throw new BadRequestException('Email já cadastrado.');
     }
-  }
-
-  async checkCredentials(email: string, password: string): Promise<User> {
-    // Tenta encontrar o usuário pelo email
-    const user = await this.findOneByEmail(email, true);
-
-    // Verifica se a senha está correta
-    await this.passwordMatches(password, user.password);
-
-    // Remove a senha do objeto de retorno
-    delete user.password;
-    return user;
-  }
-
-  async passwordMatches(password: string, hash: string): Promise<void> {
-    if (!password || !hash)
-      throw new BadRequestException('Senha não informada.');
-
-    if (!(await bcrypt.compare(password, hash)))
-      throw new BadRequestException('Senha incorreta.');
   }
 }

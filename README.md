@@ -81,7 +81,7 @@ Para acessar as rotas do projeto:
 ### • Login
 
 <details>
-<summary><code>POST</code> <code><b>/login</b></code> <code>(Autentica o usuário e salva o token no cookie)</code></summary>
+<summary><code>POST</code> <code><b>/api/login</b></code> <code>(Autentica o usuário e salva o token no cookie)</code></summary>
 
 #### • Body
 

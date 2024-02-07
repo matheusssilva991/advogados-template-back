@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, UpdateResult } from 'typeorm';
-import { Role } from '../../common/enum/role.enum';
+import { Role } from '../../common/enums/role.enum';
 import { CategoryService } from '../category/category.service';
 import { UserService } from '../user/user.service';
 import { CreateSpecialtyDto } from './dto/create-specialty.dto';
@@ -20,7 +20,7 @@ export class SpecialtyService {
     private readonly specialtyRepository: Repository<Specialty>,
     private readonly userService: UserService,
     private readonly categoryService: CategoryService,
-  ) {}
+  ) { }
 
   async create(createSpecialtyDto: CreateSpecialtyDto): Promise<Specialty> {
     // Verifica se o usuário existe

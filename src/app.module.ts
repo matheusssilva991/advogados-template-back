@@ -12,6 +12,7 @@ import { RevisionResponseDocumentsModule } from './modules/revision-response-doc
 import { RevisionResponseModule } from './modules/revision-response/revision-response.module';
 import { SpecialtyModule } from './modules/specialty/specialty.module';
 import { UserModule } from './modules/user/user.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { UserModule } from './modules/user/user.module';
     RevisionRequestDocumentsModule,
     RevisionResponseModule,
     RevisionResponseDocumentsModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],

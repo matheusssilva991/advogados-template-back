@@ -11,7 +11,7 @@ import {
   Max,
   Min,
 } from 'class-validator';
-import { Status } from '../../../common/enum/status.enum';
+import { Status } from '../../../common/enums/status.enum';
 
 export class CreateProcessDto {
   @IsString({ message: 'Chave do processo deve ser uma string.' })

@@ -13,7 +13,7 @@ import {
   Repository,
   UpdateResult,
 } from 'typeorm';
-import { Status } from '../../common/enum/status.enum';
+import { Status } from '../../common/enums/status.enum';
 import { CategoryService } from '../category/category.service';
 import { SpecialtyFilterDto } from '../specialty/dto/specialty-filter.dto';
 import { Specialty } from '../specialty/entities/specialty.entity';
@@ -36,7 +36,7 @@ export class ProcessService {
     private readonly userService: UserService,
     private readonly categoryService: CategoryService,
     private readonly specialtyService: SpecialtyService,
-  ) {}
+  ) { }
 
   async create(createProcessDto: CreateProcessDto): Promise<Process> {
     // Verifica se a chave de processo já existe

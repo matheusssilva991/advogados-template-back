@@ -8,7 +8,7 @@ import {
   IsString,
   IsStrongPassword,
 } from 'class-validator';
-import { Role } from '../../../common/enum/role.enum';
+import { Role } from '../../../common/enums/role.enum';
 
 export class CreateUserDto {
   @IsNotEmpty({ message: 'Nome é obrigatório.' })
