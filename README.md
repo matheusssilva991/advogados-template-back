@@ -78,7 +78,7 @@ $ npm run start:prod
 
 Para acessar as rotas do projeto:
 
-### • Login
+### • Auth
 
 <details>
 <summary><code>POST</code> <code><b>/api/login</b></code> <code>(Autentica o usuário e salva o token no cookie)</code></summary>
@@ -96,6 +96,18 @@ Para acessar as rotas do projeto:
 > | --------- | ------------------ | ---------------------------------------- |
 > | `200`     | `application/json` | `{"success": true, "accessToken": Bearer Token`        |
 > | `401`     | `application/json` | `{"code":"400","msg":"Email e/ou senha incorreta"}` |
+
+</details>
+
+<details>
+<summary><code>POST</code> <code><b>/api/logout</b></code> <code>(Realiza o logout)</code></summary>
+
+#### • Respostas
+
+> | http code | content-type       | response                                 |
+> | --------- | ------------------ | ---------------------------------------- |
+> | `200`     | `application/json` | `{"message": "Deslogado com sucesso."`|
+> | `401`     | `application/json` | `{"code":"401", "msg":"Unauthorized"}` |
 
 </details>
 
