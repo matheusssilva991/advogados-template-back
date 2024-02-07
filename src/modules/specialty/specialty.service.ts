@@ -20,7 +20,7 @@ export class SpecialtyService {
     private readonly specialtyRepository: Repository<Specialty>,
     private readonly userService: UserService,
     private readonly categoryService: CategoryService,
-  ) { }
+  ) {}
 
   async create(createSpecialtyDto: CreateSpecialtyDto): Promise<Specialty> {
     // Verifica se o usuário existe

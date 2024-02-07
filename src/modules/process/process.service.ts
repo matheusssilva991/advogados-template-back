@@ -36,7 +36,7 @@ export class ProcessService {
     private readonly userService: UserService,
     private readonly categoryService: CategoryService,
     private readonly specialtyService: SpecialtyService,
-  ) { }
+  ) {}
 
   async create(createProcessDto: CreateProcessDto): Promise<Process> {
     // Verifica se a chave de processo já existe

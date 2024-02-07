@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from '../auth/auth.module';
 import { CategoryModule } from '../category/category.module';
 import { SpecialtyModule } from '../specialty/specialty.module';
 import { UserModule } from '../user/user.module';
@@ -13,6 +14,7 @@ import { ProcessService } from './process.service';
     UserModule,
     CategoryModule,
     SpecialtyModule,
+    AuthModule,
   ],
   controllers: [ProcessController],
   providers: [ProcessService],

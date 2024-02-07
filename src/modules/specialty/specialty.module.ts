@@ -7,12 +7,14 @@ import { UserModule } from '../user/user.module';
 import { Specialty } from './entities/specialty.entity';
 import { SpecialtyController } from './specialty.controller';
 import { SpecialtyService } from './specialty.service';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Specialty, User, Category]),
     UserModule,
     CategoryModule,
+    AuthModule,
   ],
   controllers: [SpecialtyController],
   providers: [SpecialtyService],

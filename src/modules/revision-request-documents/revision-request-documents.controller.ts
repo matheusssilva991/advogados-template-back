@@ -9,10 +9,15 @@ import {
   Post,
   Query,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { UpdateResult } from 'typeorm';
+import { Roles } from '../../common/decorators/roles.decorator';
+import { Role } from '../../common/enums/role.enum';
+import { JwtAuthGuard } from '../../common/guards/auth.guard';
+import { RolesGuard } from '../../common/guards/role.guard';
 import { CreateRevisionRequestDocumentDto } from './dto/create-revision-request-document.dto';
 import { RevisionRequestDocFilterDto } from './dto/revision-request-doc-filter.dto';
 import { UpdateRevisionRequestDocumentDto } from './dto/update-revision-request-document.dto';
@@ -20,12 +25,14 @@ import { RevisionRequestDocument } from './entities/revision-request-document.en
 import { RevisionRequestDocumentsService } from './revision-request-documents.service';
 
 @Controller('api')
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class RevisionRequestDocumentsController {
   constructor(
     private readonly revisionRequestDocumentsService: RevisionRequestDocumentsService,
   ) {}
 
   @Post('revision-request-document')
+  @Roles(Role.lawyer)
   @UseInterceptors(FileInterceptor('file'))
   async create(
     @UploadedFile() file: Express.Multer.File,
@@ -38,6 +45,7 @@ export class RevisionRequestDocumentsController {
   }
 
   @Get('revision-request-documents')
+  @Roles(Role.admin, Role.lawyer)
   async findAll(
     @Query() query: RevisionRequestDocFilterDto,
   ): Promise<RevisionRequestDocument[]> {
@@ -48,6 +56,7 @@ export class RevisionRequestDocumentsController {
   }
 
   @Get('revision-request-document/:id')
+  @Roles(Role.admin, Role.lawyer)
   async findOne(
     @Param('id', ParseIntPipe) id: number,
   ): Promise<RevisionRequestDocument> {
@@ -56,6 +65,7 @@ export class RevisionRequestDocumentsController {
 
   @Patch('revision-request-document/:id')
   @UseInterceptors(FileInterceptor('file'))
+  @Roles(Role.lawyer)
   async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateRevisionRequestDocumentDto: UpdateRevisionRequestDocumentDto,
@@ -69,6 +79,7 @@ export class RevisionRequestDocumentsController {
   }
 
   @Delete('revision-request-document/:id')
+  @Roles(Role.lawyer)
   async remove(
     @Param('id', ParseIntPipe) id: number,
   ): Promise<RevisionRequestDocument> {

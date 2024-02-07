@@ -9,10 +9,15 @@ import {
   Post,
   Query,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { UpdateResult } from 'typeorm';
+import { Roles } from '../../common/decorators/roles.decorator';
+import { Role } from '../../common/enums/role.enum';
+import { JwtAuthGuard } from '../../common/guards/auth.guard';
+import { RolesGuard } from '../../common/guards/role.guard';
 import { CreateRevisionResponseDocumentDto } from './dto/create-revision-response-document.dto';
 import { RevisionResponseDocFilterDto } from './dto/revision-response-doc-filter.dto';
 import { UpdateRevisionResponseDocumentDto } from './dto/update-revision-response-document.dto';
@@ -20,12 +25,14 @@ import { RevisionResponseDocument } from './entities/revision-response-document.
 import { RevisionResponseDocumentsService } from './revision-response-documents.service';
 
 @Controller('api')
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class RevisionResponseDocumentsController {
   constructor(
     private readonly revisionResponseDocumentsService: RevisionResponseDocumentsService,
   ) {}
 
   @Post('revision-response-document')
+  @Roles(Role.admin)
   @UseInterceptors(FileInterceptor('file'))
   async create(
     @Body()
@@ -39,6 +46,7 @@ export class RevisionResponseDocumentsController {
   }
 
   @Get('revision-response-documents')
+  @Roles(Role.admin, Role.lawyer)
   async findAll(
     @Query() query: RevisionResponseDocFilterDto,
   ): Promise<RevisionResponseDocument[]> {
@@ -48,6 +56,7 @@ export class RevisionResponseDocumentsController {
   }
 
   @Get('revision-response-document/:id')
+  @Roles(Role.admin, Role.lawyer)
   async findOne(
     @Param('id', ParseIntPipe) id: number,
   ): Promise<RevisionResponseDocument> {
@@ -55,6 +64,7 @@ export class RevisionResponseDocumentsController {
   }
 
   @Patch('revision-response-document/:id')
+  @Roles(Role.admin)
   async update(
     @Param('id', ParseIntPipe) id: number,
     @Body()
@@ -69,6 +79,7 @@ export class RevisionResponseDocumentsController {
   }
 
   @Delete('revision-response-document/:id')
+  @Roles(Role.admin)
   async remove(
     @Param('id', ParseIntPipe) id: number,
   ): Promise<RevisionResponseDocument> {
