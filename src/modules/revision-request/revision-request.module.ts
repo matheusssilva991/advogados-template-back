@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from '../auth/auth.module';
 import { ProcessModule } from '../process/process.module';
+import { UserModule } from '../user/user.module';
 import { RevisionRequest } from './entities/revision-request.entity';
 import { RevisionRequestController } from './revision-request.controller';
 import { RevisionRequestService } from './revision-request.service';
@@ -11,6 +12,7 @@ import { RevisionRequestService } from './revision-request.service';
     TypeOrmModule.forFeature([RevisionRequest]),
     ProcessModule,
     AuthModule,
+    UserModule,
   ],
   controllers: [RevisionRequestController],
   providers: [RevisionRequestService],

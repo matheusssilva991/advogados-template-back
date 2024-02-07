@@ -14,6 +14,7 @@ import { UpdateResult } from 'typeorm';
 import { Roles } from '../../common/decorators/roles.decorator';
 import { Role } from '../../common/enums/role.enum';
 import { JwtAuthGuard } from '../../common/guards/auth.guard';
+import { LawyerRevisionRequestGuard } from '../../common/guards/lawyer-revision-request.guard';
 import { RolesGuard } from '../../common/guards/role.guard';
 import { CreateRevisionRequestDto } from './dto/create-revision-request.dto';
 import { RevisionRequestFilterDto } from './dto/revision-request-filter.dto';
@@ -30,6 +31,7 @@ export class RevisionRequestController {
 
   @Post('revision-request')
   @Roles(Role.lawyer)
+  @UseGuards(LawyerRevisionRequestGuard)
   async create(
     @Body() createRevisionRequestDto: CreateRevisionRequestDto,
   ): Promise<RevisionRequest> {
@@ -57,6 +59,7 @@ export class RevisionRequestController {
 
   @Patch('revision-request/:id')
   @Roles(Role.lawyer)
+  @UseGuards(LawyerRevisionRequestGuard)
   async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateRevisionRequestDto: UpdateRevisionRequestDto,
@@ -65,6 +68,7 @@ export class RevisionRequestController {
   }
 
   @Delete('revision-request/:id')
+  @UseGuards(LawyerRevisionRequestGuard)
   @Roles(Role.lawyer)
   async remove(
     @Param('id', ParseIntPipe) id: number,

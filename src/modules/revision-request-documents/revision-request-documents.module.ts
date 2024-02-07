@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from '../auth/auth.module';
 import { FileModule } from '../file/file.module';
 import { RevisionRequestModule } from '../revision-request/revision-request.module';
+import { UserModule } from '../user/user.module';
 import { RevisionRequestDocument } from './entities/revision-request-document.entity';
 import { RevisionRequestDocumentsController } from './revision-request-documents.controller';
 import { RevisionRequestDocumentsService } from './revision-request-documents.service';
-import { AuthModule } from '../auth/auth.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { AuthModule } from '../auth/auth.module';
     RevisionRequestModule,
     FileModule,
     AuthModule,
+    UserModule,
   ],
   controllers: [RevisionRequestDocumentsController],
   providers: [RevisionRequestDocumentsService],

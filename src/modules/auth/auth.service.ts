@@ -4,6 +4,17 @@ import { UserService } from '../user/user.service';
 import { User } from '../user/entities/user.entity';
 import * as bcrypt from 'bcrypt';
 
+export type TokenType = {
+  accessToken: string;
+};
+
+export type TokenPayload = {
+  sub: number;
+  name: string;
+  email: string;
+  role: string;
+};
+
 @Injectable()
 export class AuthService {
   constructor(
@@ -24,7 +35,7 @@ export class AuthService {
     return user;
   }
 
-  async createToken(user: User) {
+  async createToken(user: User): Promise<TokenType> {
     const accessToken = await this.jwtService.signAsync(
       {
         sub: user.id,
@@ -33,7 +44,6 @@ export class AuthService {
         role: user.role,
       },
       {
-        secret: process.env.SECRET_KEY,
         expiresIn: Number(process.env.ACCESS_TOKEN_EXPIRATION),
       },
     );
@@ -41,17 +51,18 @@ export class AuthService {
     return { accessToken };
   }
 
-  async checkToken(token: string) {
+  async checkToken(token: string): Promise<TokenPayload> {
     try {
-      return await this.jwtService.verifyAsync(token, {
+      const payload = await this.jwtService.verifyAsync(token, {
         secret: process.env.SECRET_KEY,
       });
+      return payload;
     } catch (error) {
       throw new BadRequestException(error);
     }
   }
 
-  async login(email: string, password: string) {
+  async login(email: string, password: string): Promise<TokenType> {
     const user = await this.validateUser(email, password);
 
     return await this.createToken(user);

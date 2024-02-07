@@ -30,9 +30,10 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
   async validate(payload: any) {
     try {
-      return await this.userService.findOne(payload.sub);
+      await this.userService.findOne(payload.sub);
+      return payload;
     } catch (error) {
-      throw new UnauthorizedException('Usuário não autorizado.');
+      throw new UnauthorizedException('Token inválido.');
     }
   }
 }

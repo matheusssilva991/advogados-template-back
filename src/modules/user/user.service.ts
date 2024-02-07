@@ -71,7 +71,17 @@ export class UserService {
     try {
       return await this.userRepository.findOneOrFail({
         where: { email },
-        select: { password: true },
+        select: [
+          'id',
+          'name',
+          'email',
+          'password',
+          'phoneNumber',
+          'nroOAB',
+          'role',
+          'createdAt',
+          'updatedAt',
+        ],
       });
     } catch (error) {
       throw new NotFoundException('Email não encontrado.');

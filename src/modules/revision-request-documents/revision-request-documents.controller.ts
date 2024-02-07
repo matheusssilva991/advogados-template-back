@@ -17,6 +17,7 @@ import { UpdateResult } from 'typeorm';
 import { Roles } from '../../common/decorators/roles.decorator';
 import { Role } from '../../common/enums/role.enum';
 import { JwtAuthGuard } from '../../common/guards/auth.guard';
+import { LawyerRevisionRequestDocGuard } from '../../common/guards/lawyer-revision-request-doc.guard';
 import { RolesGuard } from '../../common/guards/role.guard';
 import { CreateRevisionRequestDocumentDto } from './dto/create-revision-request-document.dto';
 import { RevisionRequestDocFilterDto } from './dto/revision-request-doc-filter.dto';
@@ -33,6 +34,7 @@ export class RevisionRequestDocumentsController {
 
   @Post('revision-request-document')
   @Roles(Role.lawyer)
+  @UseGuards(LawyerRevisionRequestDocGuard)
   @UseInterceptors(FileInterceptor('file'))
   async create(
     @UploadedFile() file: Express.Multer.File,
@@ -64,6 +66,7 @@ export class RevisionRequestDocumentsController {
   }
 
   @Patch('revision-request-document/:id')
+  @UseGuards(LawyerRevisionRequestDocGuard)
   @UseInterceptors(FileInterceptor('file'))
   @Roles(Role.lawyer)
   async update(
@@ -79,6 +82,7 @@ export class RevisionRequestDocumentsController {
   }
 
   @Delete('revision-request-document/:id')
+  @UseGuards(LawyerRevisionRequestDocGuard)
   @Roles(Role.lawyer)
   async remove(
     @Param('id', ParseIntPipe) id: number,
