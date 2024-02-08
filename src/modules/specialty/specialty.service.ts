@@ -102,9 +102,9 @@ export class SpecialtyService {
 
     // Verifica se o usuário existe
     if (updateSpecialtyDto.userId) {
-      await this.userService.findOne(updateSpecialtyDto.userId);
+      const user = await this.userService.findOne(updateSpecialtyDto.userId);
 
-      if (specialty.user.role === Role.admin) {
+      if (user.role === Role.admin) {
         throw new BadRequestException(
           'Somente advogados podem ter especialidades.',
         );
