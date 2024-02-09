@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from '../auth/auth.module';
 import { FileModule } from '../file/file.module';
+import { ProcessModule } from '../process/process.module';
 import { RevisionRequestModule } from '../revision-request/revision-request.module';
 import { UserModule } from '../user/user.module';
 import { RevisionRequestDocument } from './entities/revision-request-document.entity';
@@ -15,6 +16,7 @@ import { RevisionRequestDocumentsService } from './revision-request-documents.se
     FileModule,
     AuthModule,
     UserModule,
+    ProcessModule,
   ],
   controllers: [RevisionRequestDocumentsController],
   providers: [RevisionRequestDocumentsService],
