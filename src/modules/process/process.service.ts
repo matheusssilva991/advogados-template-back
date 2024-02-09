@@ -212,6 +212,7 @@ export class ProcessService {
 
     // Verifica se não foi informado o ID do usuário e o status não é EmAguardo
     if (updateProcessDto.userId) {
+      console.log(2, updateProcessDto);
       if (isNaN(updateProcessDto.userId)) {
         throw new BadRequestException('O ID do usuário deve ser um número.');
       } else {
@@ -222,7 +223,8 @@ export class ProcessService {
         }
       }
     } else if (
-      updateProcessDto?.status !== Status.EmAguardo &&
+      updateProcessDto.status &&
+      updateProcessDto.status !== Status.EmAguardo &&
       process.status === Status.EmAguardo
     ) {
       // Pegar todas as especialidades da categoria
@@ -251,9 +253,14 @@ export class ProcessService {
           specialties.map((specialty) => specialty.userId),
         );
       }
-
-      return await this.processRepository.update(id, updateProcessDto);
+    } else if (
+      updateProcessDto.status &&
+      updateProcessDto.status === Status.EmAguardo
+    ) {
+      updateProcessDto.userId = null;
     }
+
+    return await this.processRepository.update(id, updateProcessDto);
   }
 
   async updateMany(ids: number[]): Promise<object> {
