@@ -1,0 +1,7 @@
+assets
+dev_files
+node_modules
+dist
+upload
+.env
+README.md
