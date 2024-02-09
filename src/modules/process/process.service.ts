@@ -581,6 +581,14 @@ export class ProcessService {
 
   formatDate(date: any) {
     try {
+      if (!date) {
+        return ' ';
+      }
+
+      if (typeof date === 'string') {
+        date = new Date(date);
+      }
+
       const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
       const returnDate = date.toLocaleDateString('pt-BR', options);
 
