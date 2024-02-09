@@ -83,17 +83,22 @@
 						"method": "PATCH",
 						"header": [],
 						"body": {
-							"mode": "urlencoded",
-							"urlencoded": []
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Matheus teste\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
-							"raw": "{{url}}/user/7",
+							"raw": "{{url}}/user/2",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"user",
-								"7"
+								"2"
 							]
 						}
 					},
@@ -129,7 +134,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"matheus@email.com\",\n    \"password\": \"senha12Mc@\"\n}",
+							"raw": "{\n    \"email\": \"matheus1@email.com\",\n    \"password\": \"senha12Mc@\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -218,7 +223,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Ambiental\"\n}",
+							"raw": "{\n    \"name\": \"Civíl\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -320,13 +325,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/specialty/2",
+							"raw": "{{url}}/specialty/1",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"specialty",
-								"2"
+								"1"
 							]
 						}
 					},
@@ -339,7 +344,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"affinity\": 2,\n    \"userId\": 2,\n    \"categoryId\": 2\n}",
+							"raw": "{\n    \"affinity\": 2,\n    \"userId\": 2,\n    \"categoryId\": 1\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -365,7 +370,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"affinity\": 9,\n    \"userId\": 1,\n    \"categoryId\": 1\n}",
+							"raw": "{\n    \"affinity\": 9,\n    \"userId\": 2,\n    \"categoryId\": 2\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -373,13 +378,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/specialty/2",
+							"raw": "{{url}}/specialty/1",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"specialty",
-								"2"
+								"1"
 							]
 						}
 					},
@@ -465,13 +470,30 @@
 					"response": []
 				},
 				{
+					"name": "PROCESSES-REPORT-FILTER-VALUES",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/processes-report-filter-values",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"processes-report-filter-values"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "PROCESS",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"processKey\": \"51\",\n    \"name\": \"Naruto usocrack\",\n    \"matter\": \"51515151\",\n    \"description\": \"Naruto usocrack estava traficando drogas\",\n    \"distributionDate\": \"2023-07-20\",\n    \"deadline\": \"2023-07-27\",\n    \"isUrgent\": 0,\n    \"categoryId\": 1,\n    \"userId\": 2\n}",
+							"raw": "{\n    \"processKey\": \"514\",\n    \"name\": \"Naruto usocrack\",\n    \"matter\": \"51515151\",\n    \"description\": \"Naruto usocrack estava traficando drogas\",\n    \"distributionDate\": \"2023-07-20\",\n    \"deadline\": \"2023-07-27\",\n    \"isUrgent\": 0,\n    \"categoryId\": 1,\n    \"userId\": 2\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -496,22 +518,28 @@
 						"method": "PATCH",
 						"header": [],
 						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"processKey\": \"Kakashi\",\n    \"name\": \"Kakashi\",\n    \"materia\": \"Matéria 03\",\n    \"information\": \"Observação 03\",\n    \"distributionDate\": \"2023-11-24T00:00:00.000Z\",\n    \"conclusionDate\": \"2023-12-24T00:38:16.000Z\",\n    \"deadline\": \"2023-11-30T00:00:00.000Z\",\n    \"status\": \"Em andamento\",\n    \"isUrgent\": true,\n    \"seem\": \"teste\",\n    \"userId\": 2,\n    \"categoryId\": 1\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "matter",
+									"value": "616161661",
+									"type": "text"
+								},
+								{
+									"key": "processKey",
+									"value": "51e5fe",
+									"type": "text"
 								}
-							}
+							]
 						},
 						"url": {
-							"raw": "{{url}}/process/3",
+							"raw": "{{url}}/process/1",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"process",
-								"3"
+								"1"
 							]
 						}
 					},
@@ -652,11 +680,11 @@
 								{
 									"key": "file",
 									"type": "file",
-									"src": "/home/matheus/Documentos/MeusCodes/med-storage/med-storage-front-v2/src/assets/images/logo-original.png"
+									"src": "/home/matheus/Imagens/Capturas de tela/Captura de tela de 2024-02-09 13-52-40.png"
 								},
 								{
 									"key": "processId",
-									"value": "10",
+									"value": "1",
 									"type": "text"
 								}
 							]
@@ -716,13 +744,13 @@
 							"urlencoded": []
 						},
 						"url": {
-							"raw": "{{url}}/process-document/45",
+							"raw": "{{url}}/process-document/2",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"process-document",
-								"45"
+								"2"
 							]
 						}
 					},
@@ -793,7 +821,7 @@
 								{
 									"key": "file",
 									"type": "file",
-									"src": "/home/matheus/Documentos/MeusCodes/med-storage/med-storage-front-v2/src/assets/images/logo-original.png"
+									"src": "/home/matheus/Imagens/Capturas de tela/Captura de tela de 2024-02-09 14-05-21.png"
 								},
 								{
 									"key": "revisionRequestId",
@@ -1060,7 +1088,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\": \"Caso Bob Esponja\",\n    \"description\": \"Eu fiz isso e isso...\",\n    \"processId\": 2\n}",
+							"raw": "{\n    \"title\": \"Caso Bob Esponja\",\n    \"description\": \"Eu fiz isso e isso...\",\n    \"processId\": 1\n}",
 							"options": {
 								"raw": {
 									"language": "json"

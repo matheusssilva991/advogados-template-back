@@ -52,6 +52,12 @@ export class ProcessController {
     return this.processService.findOne(+id);
   }
 
+  @Get('processes-report-filter-values')
+  @Roles(Role.admin, Role.lawyer)
+  async getReportFilterValues(): Promise<object> {
+    return this.processService.getReportFilterValues();
+  }
+
   @Get('processes-report')
   @Roles(Role.admin, Role.lawyer)
   async getReportPDF(

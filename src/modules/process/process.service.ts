@@ -4,6 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { join } from 'path';
 import {
   Between,
   ILike,
@@ -13,6 +14,7 @@ import {
   Repository,
   UpdateResult,
 } from 'typeorm';
+import { Role } from '../../common/enums/role.enum';
 import { Status } from '../../common/enums/status.enum';
 import { CategoryService } from '../category/category.service';
 import { SpecialtyFilterDto } from '../specialty/dto/specialty-filter.dto';
@@ -21,12 +23,11 @@ import { SpecialtyService } from '../specialty/specialty.service';
 import { UserService } from '../user/user.service';
 import { CreateProcessDto } from './dto/create-process.dto';
 import { ProcessFilterDto } from './dto/process-filter.dto';
+import { ReportFilterDto } from './dto/report-filter.dto';
 import { UpdateProcessDto } from './dto/update-process.dto';
 import { Process } from './entities/process.entity';
-import { ReportFilterDto } from './dto/report-filter.dto';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const PDFDocument = require('pdfkit-table');
-import { join } from 'path';
 
 @Injectable()
 export class ProcessService {
@@ -579,7 +580,7 @@ export class ProcessService {
     return queryObject;
   }
 
-  formatDate(date: any) {
+  formatDate(date: any): any {
     try {
       if (!date) {
         return ' ';
@@ -614,5 +615,34 @@ export class ProcessService {
       endDate = this.formatDate(endDate);
       return ` -${endDate}`;
     } else return undefined;
+  }
+
+  async getReportFilterValues(): Promise<object> {
+    // Obtenha categorias e usuários
+    const [categories, users] = await Promise.all([
+      this.categoryService.findAll(),
+      this.userService.findAll(),
+    ]);
+
+    // Obtenha processos
+    const processes = await this.findAll();
+
+    // Extraia valores exclusivos de clientes, matérias e prazos
+    const customers = [...new Set(processes.map((process) => process.name))];
+    const materias = [...new Set(processes.map((process) => process.matter))];
+    const deadlines = [
+      ...new Set(processes.map((process) => this.formatDate(process.deadline))),
+    ];
+
+    // Filtrar usuários com função diferente de "Admin"
+    const filteredUsers = users.filter((user) => user.role !== Role.admin);
+
+    return {
+      categories,
+      users: filteredUsers,
+      customers,
+      materias,
+      deadlines,
+    };
   }
 }
