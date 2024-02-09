@@ -18,7 +18,7 @@ export class UserOwnProfileGuard implements CanActivate {
         request.body.role = undefined;
       }
 
-      if (user.sub !== id) {
+      if (user.id !== id) {
         throw new UnauthorizedException(
           'Você não tem permissão para acessar este recurso.',
         );
