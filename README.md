@@ -681,6 +681,26 @@ Para acessar as rotas do projeto:
 
 <details>
 
+<summary><code>GET</code> <code><b>/api/processes-report-filter-values</b></code> <code>(Retorna os valores para o filtro do relatório)</code></summary>
+
+#### • Auth (Nível de Acesso - Lawyers+)
+
+> | name    | type     | data type | description                     |
+> | ------- | -------- | --------- | ------------------------------- |
+> | `accessToken` | required | string    | Token de autorização do usuário |
+
+
+#### • Respostas
+
+> | http code | content-type       | response                                 |
+> | --------- | ------------------ | ---------------------------------------- |
+> | `200`     | `application/json` | `{"code": "200", "filterValues": FilterValues}`      |
+> | `401`     | `application/json` | `{"code":"401", "msg":"Unauthorized"}` |
+
+</details>
+
+<details>
+
 <summary><code>POST</code> <code><b>/api/process</b></code> <code>(Cria um processo)</code></summary>
 
 #### • Auth (Nível de Acesso - Admin)
