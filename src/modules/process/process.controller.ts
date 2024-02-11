@@ -10,21 +10,24 @@ import {
   Patch,
   Post,
   Query,
+  Req,
   Res,
   UseGuards,
 } from '@nestjs/common';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 import { UpdateResult } from 'typeorm';
 import { Roles } from '../../common/decorators/roles.decorator';
 import { Role } from '../../common/enums/role.enum';
 import { JwtAuthGuard } from '../../common/guards/auth.guard';
 import { RolesGuard } from '../../common/guards/role.guard';
+import { User } from '../user/entities/user.entity';
 import { CreateProcessDto } from './dto/create-process.dto';
 import { ProcessFilterDto } from './dto/process-filter.dto';
 import { ReportFilterDto } from './dto/report-filter.dto';
 import { UpdateProcessDto } from './dto/update-process.dto';
 import { Process } from './entities/process.entity';
 import { ProcessService } from './process.service';
+import { Status } from '../../common/enums/status.enum';
 
 @Controller('api')
 @UseGuards(JwtAuthGuard, RolesGuard)
@@ -48,8 +51,21 @@ export class ProcessController {
 
   @Get('process/:id')
   @Roles(Role.admin, Role.lawyer)
-  async findOne(@Param('id', ParseIntPipe) id: number): Promise<Process> {
-    return this.processService.findOne(+id);
+  async findOne(
+    @Param('id', ParseIntPipe) id: number,
+    @Req() request: Request,
+  ): Promise<Process> {
+    const user = request.user as User;
+    let process = await this.processService.findOne(+id);
+
+    if (
+      user.id === process.userId &&
+      process.status === Status.NaoVisualizado
+    ) {
+      await this.update(id, { status: Status.EmAndamento });
+      process = await this.processService.findOne(+id);
+    }
+    return process;
   }
 
   @Get('processes-report-filter-values')

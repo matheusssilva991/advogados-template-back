@@ -13,9 +13,11 @@ import {
 import { UpdateResult } from 'typeorm';
 import { Roles } from '../../common/decorators/roles.decorator';
 import { Role } from '../../common/enums/role.enum';
+import { Status } from '../../common/enums/status.enum';
 import { JwtAuthGuard } from '../../common/guards/auth.guard';
 import { LawyerRevisionRequestGuard } from '../../common/guards/lawyer-revision-request.guard';
 import { RolesGuard } from '../../common/guards/role.guard';
+import { ProcessService } from '../process/process.service';
 import { CreateRevisionRequestDto } from './dto/create-revision-request.dto';
 import { RevisionRequestFilterDto } from './dto/revision-request-filter.dto';
 import { UpdateRevisionRequestDto } from './dto/update-revision-request.dto';
@@ -27,6 +29,7 @@ import { RevisionRequestService } from './revision-request.service';
 export class RevisionRequestController {
   constructor(
     private readonly revisionRequestService: RevisionRequestService,
+    private readonly processService: ProcessService,
   ) {}
 
   @Post('revision-request')
@@ -35,6 +38,19 @@ export class RevisionRequestController {
   async create(
     @Body() createRevisionRequestDto: CreateRevisionRequestDto,
   ): Promise<RevisionRequest> {
+    const process = await this.processService.findOne(
+      createRevisionRequestDto.processId,
+    );
+
+    if (
+      process.status !== Status.Concluido &&
+      process.status !== Status.EmAguardo
+    ) {
+      this.processService.update(createRevisionRequestDto.processId, {
+        status: Status.AguardandoRetorno,
+      });
+    }
+
     return this.revisionRequestService.create(createRevisionRequestDto);
   }
 
@@ -64,6 +80,20 @@ export class RevisionRequestController {
     @Param('id', ParseIntPipe) id: number,
     @Body() updateRevisionRequestDto: UpdateRevisionRequestDto,
   ): Promise<UpdateResult> {
+    const RevisionRequest = await this.findOne(+id);
+    const processId =
+      updateRevisionRequestDto.processId || RevisionRequest.processId;
+    const process = await this.processService.findOne(processId);
+
+    if (
+      process.status !== Status.Concluido &&
+      process.status !== Status.EmAguardo
+    ) {
+      this.processService.update(processId, {
+        status: Status.AguardandoRetorno,
+      });
+    }
+
     return this.revisionRequestService.update(+id, updateRevisionRequestDto);
   }
 
