@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { dataSourceOptions } from '../db/data-source.config';
+import { AuthModule } from './modules/auth/auth.module';
 import { CategoryModule } from './modules/category/category.module';
 import { FileModule } from './modules/file/file.module';
 import { ProcessDocumentsModule } from './modules/process-documents/process-documents.module';
@@ -12,7 +13,6 @@ import { RevisionResponseDocumentsModule } from './modules/revision-response-doc
 import { RevisionResponseModule } from './modules/revision-response/revision-response.module';
 import { SpecialtyModule } from './modules/specialty/specialty.module';
 import { UserModule } from './modules/user/user.module';
-import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [

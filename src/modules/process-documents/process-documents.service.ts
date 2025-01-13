@@ -61,7 +61,8 @@ export class ProcessDocumentsService {
 
       return await this.processDocumentRepository.save(processDocument);
     } catch (error) {
-      throw new BadRequestException('Erro ao criar o documento de processo.');
+      throw new BadRequestException(error);
+      //throw new BadRequestException('Erro ao criar o documento de processo.');
     }
   }
 
