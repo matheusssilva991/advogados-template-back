@@ -8,6 +8,8 @@ services:
       - "3333"
     depends_on:
       - mysql_db
+    volumes:
+      - ./src:/usr/src/app/src
     environment:
       ENV: development
       PORT: 3333

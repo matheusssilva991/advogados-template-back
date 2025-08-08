@@ -25,7 +25,7 @@ import { UserService } from './user.service';
 @Controller('api')
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) { }
 
   @Post('user')
   @Roles(Role.admin)
