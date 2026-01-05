@@ -1,84 +1,268 @@
-# Advogados template - Back
+# Advogados Template - Backend
 
 <span id="topo"></span>
 
-<!---Esses são exemplos. Veja https://shields.io para outras pessoas ou para personalizar este conjunto de escudos. Você pode querer incluir dependências, status do projeto e informações de licença aqui--->
-
 <img src="./assets/scaleIcon.svg" alt="Capa" width="35%">
 
-> Sistema de gestão de processos de advogados
+> Sistema completo de gestão de processos jurídicos desenvolvido com NestJS, TypeScript e MySQL
 
-## 🚩 Informações do projeto
+## 🚩 Informações do Projeto
 
-<!-- Deixe apenas um -->
-
-<!-- ![Status do projeto](https://img.shields.io/badge/status-fazendo-green) -->
-<!-- ![Status do projeto](https://img.shields.io/badge/status-pausado-yellow) -->
 ![Status do projeto](https://img.shields.io/badge/status-finalizado-red)
+![Node Version](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen)
+![NestJS](https://img.shields.io/badge/NestJS-10.0.0-E0234E)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
+![MySQL](https://img.shields.io/badge/MySQL-8.0-orange)
 
-A criação de um sistema de gerenciamento de processos de advogados.
+Sistema backend completo para gerenciamento de processos jurídicos, oferecendo funcionalidades para advogados e escritórios de advocacia. O projeto foi desenvolvido com arquitetura modular, seguindo as melhores práticas de desenvolvimento com NestJS.
+
+### 🎯 Principais Funcionalidades
+
+- **Gestão de Usuários**: Cadastro e gerenciamento de advogados com níveis de acesso diferenciados
+- **Gestão de Processos**: Controle completo de processos jurídicos com categorias e status
+- **Sistema de Revisão**: Fluxo de requisição e resposta de revisões de processos
+- **Gerenciamento de Documentos**: Upload e controle de documentos relacionados aos processos
+- **Autenticação JWT**: Sistema seguro de autenticação com tokens armazenados em cookies
+- **Controle de Acesso**: Guards personalizados para diferentes níveis de permissão
+- **Relatórios em PDF**: Geração de relatórios detalhados de processos
+- **Especialidades**: Sistema de categorização de especialidades por advogado
+
+## 📋 Tecnologias Utilizadas
+
+- **[NestJS](https://nestjs.com/)** - Framework Node.js progressivo para aplicações server-side
+- **[TypeScript](https://www.typescriptlang.org/)** - Superset JavaScript com tipagem estática
+- **[TypeORM](https://typeorm.io/)** - ORM para TypeScript e JavaScript
+- **[MySQL](https://www.mysql.com/)** - Sistema de gerenciamento de banco de dados
+- **[JWT](https://jwt.io/)** - JSON Web Tokens para autenticação
+- **[Passport](http://www.passportjs.org/)** - Middleware de autenticação
+- **[Bcrypt](https://github.com/kelektiv/node.bcrypt.js)** - Biblioteca para hash de senhas
+- **[PDFKit](https://pdfkit.org/)** - Geração de documentos PDF
+- **[Docker](https://www.docker.com/)** - Containerização da aplicação
 
 ## 💻 Pré-requisitos
 
-Antes de começar, verifique se você atendeu aos seguintes requisitos:
+Antes de começar, verifique se você possui:
 
-<!-- Estes são apenas requisitos de exemplo. Adicionar, duplicar ou remover conforme necessário -->
+- **Node.js** versão 18.x ou superior
+- **npm** versão 9.x ou superior
+- **MySQL** versão 8.0 ou superior
+- **Docker** e **Docker Compose** (opcional, para execução via containers)
+- Sistema operacional: **Windows**, **Linux** ou **macOS**
 
-- Você instalou a versão mais recente de `<linguagem / dependência / requeridos>`
-- Você tem uma máquina `<Windows / Linux / Mac>`. Indique qual sistema operacional é compatível / não compatível.
-- Você leu `<guia / link / documentação_relacionada_ao_projeto>`.
+## 🚀 Instalação
 
-## 🚀 Instalando <AdvogadosTemplate>
+### Instalação Local (sem Docker)
 
-Para instalar o <AdvogadosTemplate>, siga estas etapas:
-
-Linux:
-
-Primeiro, certifique-se que tenha o node e npm em sua máquina
+1. **Verifique as versões do Node.js e npm:**
 
 ```bash
-Node.js -v && npm --version 
+node -v && npm --version
 ```
 
-Caso não tenha o node e npm em sua máquina, utilize o comando
+1. **Caso não tenha o Node.js instalado:**
+
+**Linux (Ubuntu/Debian):**
 
 ```bash
-sudo apt install node 
-sudo apt install npm 
+sudo apt update
+sudo apt install nodejs npm
 ```
 
-Em seguida, instale o nest CLI
+**macOS (com Homebrew):**
 
 ```bash
-npm i -g @nestjs/cli
+brew install node
 ```
 
-Depois Rode os seguintes comandos para instalar as dependências do projeto:
+**Windows:**
+Baixe o instalador em [nodejs.org](https://nodejs.org/)
+
+1. **Instale o NestJS CLI globalmente:**
 
 ```bash
-npm i
+npm install -g @nestjs/cli
 ```
 
-Depois, renomeie o arquivo .env-example para .env e configure as variáveis de ambiente.
-
-## ☕ Usando <AdvogadosTemplate>
-
-Para rodar o projeto:
+1. **Clone o repositório e instale as dependências:**
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+git clone <url-do-repositorio>
+cd advogados-template-back
+npm install
 ```
 
-Para acessar as rotas do projeto:
+1. **Configure as variáveis de ambiente:**
 
-### • Auth
+Crie um arquivo `.env` na raiz do projeto com base no exemplo abaixo:
+
+```env
+# Ambiente
+ENV=development
+
+# Servidor
+PORT=3333
+
+# Segurança
+SECRET_KEY=sua_chave_secreta_aqui
+ACCESS_TOKEN_EXPIRATION=86400
+
+# Frontend
+FRONTEND_URL=http://localhost:3000
+
+# Banco de Dados
+DB_HOST=localhost
+DB_PORT=3306
+DB_USER=seu_usuario
+DB_PASSWORD=sua_senha
+DB_DATABASE=advogados-template
+```
+
+1. **Configure o banco de dados MySQL:**
+
+Execute o script SQL localizado em `dev_files/advogados-template.sql` no seu MySQL.
+
+1. **Execute as migrations (se houver):**
+
+```bash
+npm run migration:run
+```
+
+### Instalação com Docker
+
+1. **Certifique-se de ter o Docker e Docker Compose instalados:**
+
+```bash
+docker --version && docker-compose --version
+```
+
+1. **Inicie os containers:**
+
+```bash
+docker-compose up -d
+```
+
+O Docker irá criar automaticamente os containers para a aplicação e o banco de dados MySQL.
+
+## ☕ Executando o Projeto
+
+### Modo Desenvolvimento
+
+```bash
+npm run start:dev
+```
+
+O servidor iniciará em modo watch, reiniciando automaticamente ao detectar alterações nos arquivos.
+
+### Modo Produção
+
+```bash
+# Build da aplicação
+npm run build
+
+# Executar a aplicação buildada
+npm run start:prod
+```
+
+### Modo Debug
+
+```bash
+npm run start:debug
+```
+
+### Com Docker
+
+```bash
+docker-compose up
+```
+
+Acesse a API em: `http://localhost:3333`
+
+## 📦 Estrutura do Projeto
+
+```
+advogados-template-back/
+├── src/
+│   ├── common/                    # Recursos compartilhados
+│   │   ├── decorators/           # Decorators personalizados
+│   │   ├── enums/                # Enumerações (Role, Status)
+│   │   └── guards/               # Guards de autenticação e autorização
+│   ├── modules/                  # Módulos da aplicação
+│   │   ├── auth/                 # Autenticação JWT
+│   │   ├── user/                 # Gestão de usuários
+│   │   ├── category/             # Categorias de processos
+│   │   ├── specialty/            # Especialidades dos advogados
+│   │   ├── process/              # Gestão de processos
+│   │   ├── process-documents/    # Documentos de processos
+│   │   ├── revision-request/     # Requisições de revisão
+│   │   ├── revision-request-documents/
+│   │   ├── revision-response/    # Respostas de revisão
+│   │   ├── revision-response-documents/
+│   │   └── file/                 # Serviço de arquivos
+│   ├── app.module.ts             # Módulo principal
+│   └── main.ts                   # Arquivo de inicialização
+├── db/                           # Configuração do banco de dados
+├── dev_files/                    # Arquivos de desenvolvimento
+│   ├── advogados-template.sql   # Script SQL inicial
+│   └── *.postman_collection.json # Coleção do Postman
+├── upload/                       # Diretório de uploads
+├── docker-compose.yml            # Configuração Docker
+└── package.json                  # Dependências do projeto
+```
+
+## 🔐 Níveis de Acesso
+
+O sistema possui três níveis de acesso:
+
+1. **Admin**: Acesso total ao sistema
+2. **Lawyer**: Acesso a processos e criação de requisições de revisão
+3. **User**: Acesso básico de visualização
+
+## 🧪 Testes
+
+```bash
+# Testes unitários
+npm run test
+
+# Testes em modo watch
+npm run test:watch
+
+# Cobertura de testes
+npm run test:cov
+
+# Testes e2e
+npm run test:e2e
+```
+
+## 📚 Scripts Disponíveis
+
+```bash
+npm run build              # Build da aplicação
+npm run format             # Formatar código com Prettier
+npm run start              # Iniciar em modo padrão
+npm run start:dev          # Iniciar em modo desenvolvimento
+npm run start:debug        # Iniciar em modo debug
+npm run start:prod         # Iniciar em modo produção
+npm run lint               # Verificar código com ESLint
+npm run migration:generate # Gerar nova migration
+npm run migration:run      # Executar migrations
+npm run migration:revert   # Reverter última migration
+```
+
+## 📖 Documentação da API
+
+A documentação completa da API está disponível via Postman Collection em `dev_files/Projeto Advogados Template.postman_collection.json`.
+
+### Endpoint Base
+
+```
+http://localhost:3333/api
+```
+
+### Principais Endpoints
+
+Para detalhes completos de cada endpoint, consulte as seções abaixo ou importe a collection do Postman.
+
+#### 🔐 Autenticação
 
 <details>
 <summary><code>POST</code> <code><b>/api/login</b></code> <code>(Autentica o usuário e salva o token no cookie)</code></summary>
@@ -688,7 +872,6 @@ Para acessar as rotas do projeto:
 > | name    | type     | data type | description                     |
 > | ------- | -------- | --------- | ------------------------------- |
 > | `accessToken` | required | string    | Token de autorização do usuário |
-
 
 #### • Respostas
 
@@ -1610,7 +1793,21 @@ Para acessar as rotas do projeto:
 
 ---
 
-## 🤝 Equipe
+## 🤝 Contribuindo
+
+Contribuições são sempre bem-vindas! Para contribuir com este projeto:
+
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/NovaFuncionalidade`)
+3. Commit suas mudanças (`git commit -m 'Adiciona nova funcionalidade'`)
+4. Push para a branch (`git push origin feature/NovaFuncionalidade`)
+5. Abra um Pull Request
+
+## 📝 Licença
+
+Este projeto está sob a licença UNLICENSED. Para uso em produção, considere adicionar uma licença apropriada.
+
+## 👥 Equipe de Desenvolvimento
 
 Membros da equipe de desenvolvimento do projeto:
 
